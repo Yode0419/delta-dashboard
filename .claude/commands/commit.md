@@ -28,7 +28,17 @@ Analyze the current git changes and propose a commit message for the user to con
 
 **Short description** — what changed, in plain language. No period at the end.
 
-**Detail lines** — plain sentences, no bullet prefix. Only include changes that are non-obvious or worth calling out. 2 to 4 lines is ideal; omit entirely if the first line says it all.
+**Detail lines** — use bullet points (`-`). Only include changes that are non-obvious or worth calling out. 2 to 4 bullets is ideal; omit entirely if the first line says it all.
+
+## Example
+
+```
+feat(simulation): add tick-driven simulation engine
+
+- setInterval at 2000ms, 8 total ticks
+- each tick updates metrics, fires alerts, and appends a log entry
+- auto-completes experiment when totalTicks is reached
+```
 
 ## Tone
 

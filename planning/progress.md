@@ -38,4 +38,8 @@
 - 初始化 git repo，推送至 GitHub（Yode0419/delta-dashboard）
 - 建立 CLAUDE.md，記錄專案背景與架構
 - 新增 planning/prototype-plan.md、planning/progress.md
-- 建立 .claude/commands/commit.md skill
+- 建立 .claude/commands/commit.md、log.md skill
+- 安裝 element-plus，在 main.ts 全域註冊
+- 清除 Vue 預設 scaffolding（HelloWorld、TheWelcome、WelcomeItem、icons、counter store、base.css、logo.svg）
+- App.vue 改為標準三區塊結構（script/template/style），放置 el-button 驗證 Element Plus 引入正常
+- main.css 簡化為基礎 reset

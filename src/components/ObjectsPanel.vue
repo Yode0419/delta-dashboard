@@ -5,7 +5,9 @@ import ObjectDetail from '@/components/ObjectDetail.vue'
 
 <template>
   <el-card class="objects-panel" shadow="never">
-    <template #header>Objects</template>
+    <template #header>
+      <h2 class="text-h2">Objects</h2>
+    </template>
     <el-row class="inner-row">
       <el-col :span="12" class="col-block">
         <ObjectList />

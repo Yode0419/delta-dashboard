@@ -2,7 +2,9 @@
 
 <template>
   <el-card class="log-panel" shadow="never">
-    <template #header>Log</template>
+    <template #header>
+      <h2 class="text-h2">Log</h2>
+    </template>
     <div class="log-list text-caption">
       <div class="log-row"><span class="time">00:02:10</span><span>Lorem ipsum dolor sit amet consectetur.</span></div>
       <div class="log-row"><span class="time">00:04:22</span><span>Lorem ipsum dolor sit amet consectetur. Vulputate varius justo velit eget malesuada sem.</span></div>

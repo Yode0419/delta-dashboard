@@ -12,7 +12,7 @@
         <span class="stat-label text-label">Duration</span>
         <span class="stat-value text-h1">00:12:34</span>
       </div>
-      <el-button>Stop</el-button>
+      <el-button size="large" type="danger" plain>Stop</el-button>
     </div>
   </div>
 </template>

@@ -1,10 +1,12 @@
 <script setup lang="ts" name="HeatmapPanel">
-import KpiCard from '@/components/KpiCard.vue'
+import KpiCard from "@/components/KpiCard.vue";
 </script>
 
 <template>
   <el-card class="heatmap-panel" shadow="never">
-    <template #header>3D heatmap</template>
+    <template #header>
+      <h2 class="text-h2">3D heatmap</h2>
+    </template>
     <div class="heatmap-placeholder" />
     <div class="kpi-row">
       <KpiCard />

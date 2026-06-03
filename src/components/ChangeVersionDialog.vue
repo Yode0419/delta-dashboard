@@ -26,6 +26,9 @@ function onCancel() {
 }
 
 function onApply() {
+  if (selectedVersionId.value) {
+    store.applyVersion(selectedVersionId.value)
+  }
   visible.value = false
 }
 </script>

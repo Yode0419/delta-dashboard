@@ -1,16 +1,16 @@
 <script setup lang="ts" name="MetricCard">
-import type { Metric } from '@/types'
+import type { Metric } from "@/types";
 
 defineProps<{
-  metric: Metric
-  alertDesc?: string
-}>()
+  metric: Metric;
+  alertDesc?: string;
+}>();
 
 const statusLabel: Record<string, string> = {
-  normal: 'Normal',
-  warning: 'Warning',
-  critical: 'Critical',
-}
+  normal: "Normal",
+  warning: "Warning",
+  critical: "Critical",
+};
 </script>
 
 <template>
@@ -62,9 +62,15 @@ const statusLabel: Record<string, string> = {
   flex-shrink: 0;
 }
 
-.status-dot.normal   { background: #67c23a; }
-.status-dot.warning  { background: #e6a23c; }
-.status-dot.critical { background: #f56c6c; }
+.status-dot.normal {
+  background: #67c23a;
+}
+.status-dot.warning {
+  background: #e6a23c;
+}
+.status-dot.critical {
+  background: #f56c6c;
+}
 
 .card-value {
   display: flex;

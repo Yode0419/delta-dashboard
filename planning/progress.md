@@ -24,12 +24,12 @@
 ### Iteration 3 — 版本流程
 > 驗收：完整走過 Demo 腳本步驟 3–7（Stop → ChangeVersion → Apply → Revert）
 
-- [ ] `AppHeader.vue` Stop 按鈕邏輯（store.stopExperiment），status 切換
-- [ ] `ChangeVersionModal.vue` el-dialog，版本列表 + Current/Last Run 標籤 + Apply
-- [ ] `store.applyVersion` 更新 currentVersion，標記 versionChanged
-- [ ] `ObjectList.vue` versionChanged 時顯示 ● 標記
-- [ ] `ObjectDetail.vue` Apply 後顯示空狀態
-- [ ] Revert 按鈕邏輯（store.revertVersion）
+- [x] `AppHeader.vue` Stop 按鈕邏輯（store.stopExperiment），status 切換
+- [x] `ChangeVersionModal.vue` el-dialog，版本列表 + Current/Last Run 標籤 + Apply
+- [x] `store.applyVersion` 更新 currentVersion，標記 versionChanged
+- [x] `ObjectList.vue` versionChanged 時顯示 ● 標記
+- [x] `ObjectDetail.vue` Apply 後顯示空狀態
+- [x] Revert 按鈕邏輯（store.revertVersion）
 
 ### Iteration 4 — Simulation 引擎
 > 驗收：完整走過 Demo 腳本步驟 1–2（Running → 等待 → alert 自動出現）
@@ -54,6 +54,10 @@
 ---
 
 ## 開發日誌
+
+### 2026-06-04
+- 完成 Iteration 3：Stop/Re-run、applyVersion、revertVersion 流程全部連線
+- 新增 StatusCell.vue，統一 status 顯示；修正 mock data currentVersion 與 lastRun 一致性
 
 ### 2026-06-03
 - 調整開發策略為 UI-first 迭代，更新計畫文件與待辦清單結構

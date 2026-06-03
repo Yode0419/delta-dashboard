@@ -4,18 +4,21 @@ import { storeToRefs } from "pinia";
 import { useExperimentStore } from "@/stores/experiment";
 import MetricCard from "@/components/MetricCard.vue";
 import ChangeVersionDialog from "@/components/ChangeVersionDialog.vue";
+import StatusCell from "@/components/StatusCell.vue";
 import objectModelSvg from "@/assets/object-model.svg";
 
 const store = useExperimentStore();
-const { selectedObject, selectedMetrics, selectedAlerts } = storeToRefs(store);
+const {
+  selectedObject,
+  selectedMetrics,
+  selectedAlerts,
+  experiment,
+  displayStatus,
+  displayAlertCount,
+  lastRunVersion,
+} = storeToRefs(store);
 
 const dialogVisible = ref(false);
-
-const statusLabel: Record<string, string> = {
-  normal: "Normal",
-  warning: "Warning",
-  critical: "Critical",
-};
 
 function alertDescFor(metricName: string): string | undefined {
   return selectedAlerts.value.find((a) => a.metric === metricName)?.description;
@@ -33,21 +36,20 @@ function alertDescFor(metricName: string): string | undefined {
     <div class="summary">
       <div class="summary-header">
         <span class="text-h3">{{ selectedObject.name }}</span>
-        <el-button @click="dialogVisible = true">Change Version</el-button>
+        <el-button :disabled="experiment.status === 'running'" @click="dialogVisible = true"
+          >Change Version</el-button
+        >
       </div>
       <div class="summary-body">
         <img :src="objectModelSvg" width="80" />
         <div class="summary-stats">
           <div class="stat">
             <span class="text-data-label stat-label">Status</span>
-            <span class="status-value text-data-value">
-              <span class="status-dot" :class="selectedObject.status" />
-              {{ statusLabel[selectedObject.status] }}
-            </span>
+            <StatusCell :status="displayStatus" class="text-data-value" />
           </div>
           <div class="stat">
             <span class="text-data-label stat-label">Alert</span>
-            <span class="text-data-value">{{ selectedObject.alertCount }}</span>
+            <span class="text-data-value">{{ displayAlertCount ?? "-" }}</span>
           </div>
           <div class="stat">
             <span class="text-data-label stat-label">Version</span>
@@ -60,7 +62,14 @@ function alertDescFor(metricName: string): string | undefined {
 
     <el-divider />
 
-    <div v-if="selectedMetrics.length" class="metrics">
+    <div v-if="selectedObject.versionChanged" class="version-changed-state">
+      <p class="text-body no-result-text">
+        No results yet.<br />
+        Re-run to see results for {{ selectedObject.currentVersion }}.
+      </p>
+      <el-button @click="store.revertVersion()">Revert to {{ lastRunVersion }}</el-button>
+    </div>
+    <div v-else-if="selectedMetrics.length" class="metrics">
       <MetricCard
         v-for="metric in selectedMetrics"
         :key="metric.name"
@@ -98,6 +107,11 @@ function alertDescFor(metricName: string): string | undefined {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 1;
+  padding-bottom: 8px;
 }
 
 .summary-body {
@@ -123,32 +137,8 @@ function alertDescFor(metricName: string): string | undefined {
   color: var(--el-text-color-secondary);
 }
 
-.status-value {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.status-dot.normal {
-  background: #67c23a;
-}
-.status-dot.warning {
-  background: #e6a23c;
-}
-.status-dot.critical {
-  background: #f56c6c;
-}
-
 .description {
   margin: 16px 0 0;
-  color: var(--el-text-color-secondary);
 }
 
 .metrics {
@@ -161,6 +151,19 @@ function alertDescFor(metricName: string): string | undefined {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.version-changed-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 40px 0;
+}
+
+.no-result-text {
+  color: var(--el-text-color-secondary);
+  text-align: center;
 }
 
 .metric-placeholder {

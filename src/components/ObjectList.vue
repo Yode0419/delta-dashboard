@@ -1,6 +1,7 @@
 <script setup lang="ts" name="ObjectList">
 import { storeToRefs } from 'pinia'
 import { useExperimentStore } from '@/stores/experiment'
+import StatusCell from '@/components/StatusCell.vue'
 import objectModelSvg from '@/assets/object-model-sm.svg'
 
 const store = useExperimentStore()
@@ -8,6 +9,12 @@ const { objects, selectedObjectId } = storeToRefs(store)
 
 function handleRowClick(row: { id: string }) {
   store.selectObject(row.id)
+}
+
+const severityOrder: Record<string, number> = { critical: 3, warning: 2, normal: 1 }
+
+function sortByStatus(a: { status: string }, b: { status: string }) {
+  return (severityOrder[a.status] ?? 0) - (severityOrder[b.status] ?? 0)
 }
 </script>
 
@@ -28,20 +35,24 @@ function handleRowClick(row: { id: string }) {
       </template>
     </el-table-column>
     <el-table-column prop="name" label="Object" sortable width="140" />
-    <el-table-column prop="status" label="Status" sortable>
+    <el-table-column prop="status" label="Status" sortable :sort-method="sortByStatus">
       <template #default="{ row }">
-        <div class="status-cell">
-          <span class="status-dot" :class="row.status" />
-          {{ row.status.charAt(0).toUpperCase() + row.status.slice(1) }}
-        </div>
+        <StatusCell :status="row.versionChanged ? null : row.status" />
       </template>
     </el-table-column>
     <el-table-column prop="alertCount" label="Alert" sortable>
       <template #default="{ row }">
-        {{ row.alertCount > 0 ? row.alertCount : '-' }}
+        {{ row.versionChanged ? '-' : row.alertCount > 0 ? row.alertCount : '-' }}
       </template>
     </el-table-column>
-    <el-table-column prop="currentVersion" label="Version" />
+    <el-table-column prop="currentVersion" label="Version">
+      <template #default="{ row }">
+        <div class="version-cell">
+          {{ row.currentVersion }}
+          <span v-if="row.versionChanged" class="version-changed-dot" />
+        </div>
+      </template>
+    </el-table-column>
   </el-table>
 </template>
 
@@ -52,20 +63,18 @@ function handleRowClick(row: { id: string }) {
   justify-content: center;
 }
 
-.status-cell {
+
+.version-cell {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
-.status-dot {
+.version-changed-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
+  background: var(--el-color-primary);
   flex-shrink: 0;
 }
-
-.status-dot.normal   { background: #67c23a; }
-.status-dot.warning  { background: #e6a23c; }
-.status-dot.critical { background: #f56c6c; }
 </style>

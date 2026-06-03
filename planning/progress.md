@@ -40,7 +40,7 @@
 - [ ] `AppHeader.vue` 計時器改為 elapsed 秒數，進度條 reactive
 - [ ] `ObjectList.vue` status / alertCount reactive 更新
 - [ ] `MetricCard.vue` 數值隨 tick 更新，超 threshold 顯示 alert 描述
-- [ ] `SparklineChart.vue` SVG 折線 + threshold 虛線
+- [ ] `SparklineChart.vue` 使用 vue-chartjs（Chart.js wrapper），折線 + threshold 虛線
 
 ### Iteration 5 — 收尾
 > 驗收：完整走過整份 Demo 腳本（步驟 1–8）

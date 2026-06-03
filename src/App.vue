@@ -57,6 +57,7 @@ import ObjectsPanel from "@/components/ObjectsPanel.vue";
   flex-direction: column;
   gap: 16px;
   height: 100%;
+  overflow: hidden;
 }
 
 .right-col {

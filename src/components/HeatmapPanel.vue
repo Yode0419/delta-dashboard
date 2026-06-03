@@ -1,6 +1,10 @@
 <script setup lang="ts" name="HeatmapPanel">
-import KpiCard from "@/components/KpiCard.vue";
-import heatmapPreview from "@/assets/heatmap-preview.png";
+import { storeToRefs } from 'pinia'
+import { useExperimentStore } from '@/stores/experiment'
+import KpiCard from '@/components/KpiCard.vue'
+import heatmapPreview from '@/assets/heatmap-preview.png'
+
+const { kpiItems } = storeToRefs(useExperimentStore())
 </script>
 
 <template>
@@ -10,17 +14,15 @@ import heatmapPreview from "@/assets/heatmap-preview.png";
     </template>
     <img :src="heatmapPreview" class="heatmap-placeholder" />
     <div class="kpi-row">
-      <KpiCard />
-      <KpiCard />
-      <KpiCard />
-      <KpiCard />
+      <KpiCard v-for="item in kpiItems" :key="item.label" :item="item" />
     </div>
   </el-card>
 </template>
 
 <style scoped>
 .heatmap-panel {
-  height: 100%;
+  flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
 }

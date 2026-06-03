@@ -17,6 +17,9 @@
 </template>
 
 <style scoped>
+:deep(.el-card__body) {
+  padding: 0;
+}
 
 .log-list {
   display: flex;
@@ -24,6 +27,7 @@
   gap: 4px;
   max-height: 160px;
   overflow-y: auto;
+  padding: 12px 16px;
 }
 
 .log-row {

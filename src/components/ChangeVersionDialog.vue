@@ -1,121 +1,74 @@
 <script setup lang="ts" name="ChangeVersionDialog">
-import { ref } from "vue";
-import objectModelSvg from "@/assets/object-model.svg";
+import { ref, watch, computed } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useExperimentStore } from '@/stores/experiment'
+import type { Version } from '@/types'
+import objectModelSvg from '@/assets/object-model.svg'
 
-const visible = defineModel<boolean>();
+const visible = defineModel<boolean>()
 
-const currentVersion = "v2.0";
-const selectedVersion = ref(currentVersion);
+const store = useExperimentStore()
+const { selectedObject, selectedVersions } = storeToRefs(store)
 
-const versions = [
-  {
-    version: "v1.0",
-    createdDate: "2026-01-05 08:00",
-    description:
-      "Object description, Lorem ipsum dolor sit amet consectetur. Tempor ante sit pulvinar viverra mi nam.",
-  },
-  {
-    version: "v1.5",
-    createdDate: "2026-02-10 12:30",
-    description:
-      "Object description, Lorem ipsum dolor sit amet consectetur. Tempor ante sit pulvinar viverra mi nam.",
-  },
-  {
-    version: "v2.0",
-    createdDate: "2026-03-15 16:45",
-    description:
-      "Object description, Lorem ipsum dolor sit amet consectetur. Tempor ante sit pulvinar viverra mi nam.",
-  },
-  {
-    version: "v2.5",
-    createdDate: "2026-04-20 20:00",
-    description:
-      "Object description, Lorem ipsum dolor sit amet consectetur. Tempor ante sit pulvinar viverra mi nam.",
-  },
-  {
-    version: "v3.0",
-    createdDate: "2026-06-25 00:15",
-    description:
-      "Object description, Lorem ipsum dolor sit amet consectetur. Tempor ante sit pulvinar viverra mi nam.",
-  },
-  {
-    version: "v3.5",
-    createdDate: "2026-07-30 04:30",
-    description:
-      "Object description, Lorem ipsum dolor sit amet consectetur. Tempor ante sit pulvinar viverra mi nam.",
-  },
-  {
-    version: "v4.0",
-    createdDate: "2026-08-04 08:45",
-    description:
-      "Object description, Lorem ipsum dolor sit amet consectetur. Tempor ante sit pulvinar viverra mi nam.",
-  },
-  {
-    version: "v4.1",
-    createdDate: "2026-09-09 13:00",
-    description:
-      "Object description, Lorem ipsum dolor sit amet consectetur. Tempor ante sit pulvinar viverra mi nam.",
-  },
-  {
-    version: "v4.2",
-    createdDate: "2026-10-14 17:15",
-    description:
-      "Object description, Lorem ipsum dolor sit amet consectetur. Tempor ante sit pulvinar viverra mi nam.",
-  },
-];
+const currentVersionId = computed(
+  () => selectedVersions.value.find((v) => v.isCurrent)?.id ?? null,
+)
+
+const selectedVersionId = ref<string | null>(null)
+
+// Reset selection to current version each time dialog opens
+watch(visible, (val) => {
+  if (val) selectedVersionId.value = currentVersionId.value
+})
 
 function onCancel() {
-  selectedVersion.value = currentVersion;
-  visible.value = false;
+  visible.value = false
 }
 
 function onApply() {
-  visible.value = false;
+  visible.value = false
 }
 </script>
 
 <template>
   <el-dialog v-model="visible" width="960">
     <template #header>
-      <h2 class="text-h2">Change Version for Fan#2</h2>
+      <h2 class="text-h2">Change Version for {{ selectedObject?.name }}</h2>
     </template>
+
     <div class="dialog-header">
       <img :src="objectModelSvg" width="80" />
       <div class="header-info">
         <div class="info-item">
           <span class="text-data-label info-label">Object</span>
-          <span class="text-data-value">Fan#2</span>
+          <span class="text-data-value">{{ selectedObject?.name }}</span>
         </div>
         <div class="info-item">
           <span class="text-data-label info-label">Current Version</span>
-          <span class="text-data-value">{{ currentVersion }}</span>
+          <span class="text-data-value">{{ selectedObject?.currentVersion }}</span>
         </div>
       </div>
     </div>
 
     <el-table
-      :data="versions"
+      :data="selectedVersions"
       highlight-current-row
-      @row-click="(row: { version: string }) => (selectedVersion = row.version)"
+      @row-click="(row: Version) => (selectedVersionId = row.id)"
     >
       <el-table-column width="48" :show-overflow-tooltip="false">
         <template #default="{ row }">
-          <el-radio v-model="selectedVersion" :value="row.version" />
+          <el-radio v-model="selectedVersionId" :value="row.id" />
         </template>
       </el-table-column>
-      <el-table-column label="Version" width="160">
+      <el-table-column label="Version" width="200">
         <template #default="{ row }">
-          <span>{{ row.version }}</span>
-          <el-tag
-            v-if="row.version === currentVersion"
-            size="small"
-            type="info"
-            style="margin-left: 6px"
-            >Last Run</el-tag
-          >
+          <span>{{ row.label }}</span>
+          <el-tag v-if="row.isLastRun" size="small" type="info" style="margin-left: 6px">
+            Last Run
+          </el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="createdDate" label="Created Date" width="180" />
+      <el-table-column prop="createdAt" label="Created Date" width="140" />
       <el-table-column
         prop="description"
         label="Description"

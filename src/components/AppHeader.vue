@@ -1,16 +1,40 @@
-<script setup lang="ts" name="AppHeader"></script>
+<script setup lang="ts" name="AppHeader">
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useExperimentStore } from '@/stores/experiment'
+
+const store = useExperimentStore()
+const { experiment } = storeToRefs(store)
+
+const statusLabel: Record<string, string> = {
+  running: 'Running',
+  completed: 'Completed',
+  stopped: 'Stopped',
+}
+
+function formatDuration(seconds: number): string {
+  const h = Math.floor(seconds / 3600)
+  const m = Math.floor((seconds % 3600) / 60)
+  const s = seconds % 60
+  return [h, m, s].map((v) => String(v).padStart(2, '0')).join(':')
+}
+
+const durationDisplay = computed(() => formatDuration(experiment.value.duration))
+</script>
 
 <template>
   <div class="header">
-    <span class="title text-h1">Server Thermal Simulation #003</span>
+    <span class="title text-h1">{{ experiment.name }}</span>
     <div class="header-right">
       <div class="stat">
         <span class="stat-label text-label">Status</span>
-        <span class="stat-value text-h1 running">Running</span>
+        <span class="stat-value text-h1" :class="experiment.status">
+          {{ statusLabel[experiment.status] }}
+        </span>
       </div>
       <div class="stat">
         <span class="stat-label text-label">Duration</span>
-        <span class="stat-value text-h1">00:12:34</span>
+        <span class="stat-value text-h1">{{ durationDisplay }}</span>
       </div>
       <el-button size="large" type="danger" plain>Stop</el-button>
     </div>
@@ -52,7 +76,7 @@
   color: #1a1a1a;
 }
 
-.stat-value.running {
-  color: #67c23a;
-}
+.stat-value.running   { color: #67c23a; }
+.stat-value.stopped   { color: #f56c6c; }
+.stat-value.completed { color: #909399; }
 </style>

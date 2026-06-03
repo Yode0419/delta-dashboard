@@ -15,11 +15,11 @@
 ### Iteration 2 — 靜態資料驅動
 > 驗收：點擊 ObjectList 不同列，右欄內容跟著切換
 
-- [ ] `src/types/index.ts` Experiment、ObjectItem、Metric、Version interface
-- [ ] `src/stores/experiment.ts` 固定 running 快照資料 + selectedObjectId
-- [ ] `ObjectList.vue` 改讀 store，點擊列更新 selectedObjectId
-- [ ] `ObjectDetail.vue` 改讀 store selectedObject
-- [ ] `AppHeader.vue` 改讀 store experiment status
+- [x] `src/types/index.ts` Experiment、ObjectItem、Metric、Version interface
+- [x] `src/stores/experiment.ts` 固定 running 快照資料 + selectedObjectId
+- [x] `ObjectList.vue` 改讀 store，點擊列更新 selectedObjectId
+- [x] `ObjectDetail.vue` 改讀 store selectedObject
+- [x] `AppHeader.vue` 改讀 store experiment status
 
 ### Iteration 3 — 版本流程
 > 驗收：完整走過 Demo 腳本步驟 3–7（Stop → ChangeVersion → Apply → Revert）
@@ -61,6 +61,8 @@
 - main.css 引入 Inter 字型並定義 typography utility class
 - 完成 Iteration 1 靜態 UI：ObjectList 改用 el-table（SVG 圖示欄、排序、highlight）、ObjectDetail 實作 summary 區塊、MetricCard 加入 alertDesc prop 與 footer、KpiCard 完成數值排版
 - 新增 ChangeVersionDialog.vue（el-dialog + radio 版本選擇表格、row-click 聯動）
+- 完成 Iteration 2：建立 types、mock.ts、experiment store，所有元件改讀 store，點擊 ObjectList 右欄正確切換
+- 修正 LogPanel 雙層捲軸問題
 
 ### 2026-06-02
 - 初始化 git repo，推送至 GitHub（Yode0419/delta-dashboard）

@@ -1,23 +1,34 @@
 <script setup lang="ts" name="MetricCard">
-const props = defineProps<{ alertDesc?: string }>()
+import type { Metric } from '@/types'
+
+defineProps<{
+  metric: Metric
+  alertDesc?: string
+}>()
+
+const statusLabel: Record<string, string> = {
+  normal: 'Normal',
+  warning: 'Warning',
+  critical: 'Critical',
+}
 </script>
 
 <template>
   <div class="metric-card">
     <div class="card-header">
-      <span class="text-data-label">Fan Speed</span>
+      <span class="text-data-label">{{ metric.name }}</span>
       <span class="status-badge">
-        <span class="status-dot" />
-        <span class="text-data-label">Critical</span>
+        <span class="status-dot" :class="metric.status" />
+        <span class="text-data-label">{{ statusLabel[metric.status] }}</span>
       </span>
     </div>
     <div class="card-value">
-      <span class="text-h2">4850</span>
-      <span class="text-data-label unit">RPM</span>
+      <span class="text-h2">{{ metric.value }}</span>
+      <span class="text-data-label unit">{{ metric.unit }}</span>
     </div>
     <div class="chart-placeholder" />
-    <div v-if="props.alertDesc" class="card-footer">
-      <p class="text-caption alert-desc">{{ props.alertDesc }}</p>
+    <div v-if="alertDesc" class="card-footer">
+      <p class="text-caption alert-desc">{{ alertDesc }}</p>
     </div>
   </div>
 </template>
@@ -48,9 +59,12 @@ const props = defineProps<{ alertDesc?: string }>()
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #f56c6c;
   flex-shrink: 0;
 }
+
+.status-dot.normal   { background: #67c23a; }
+.status-dot.warning  { background: #e6a23c; }
+.status-dot.critical { background: #f56c6c; }
 
 .card-value {
   display: flex;

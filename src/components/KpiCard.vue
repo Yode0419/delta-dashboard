@@ -1,14 +1,50 @@
 <script setup lang="ts" name="KpiCard"></script>
 
 <template>
-  <div class="kpi-card" />
+  <div class="kpi-card">
+    <div class="card-header">
+      <span class="text-data-label">Peak Temp</span>
+      <span class="status-dot" />
+    </div>
+    <div class="card-value">
+      <span class="text-h1">94</span>
+      <span class="text-body unit">°C</span>
+    </div>
+  </div>
 </template>
 
 <style scoped>
 .kpi-card {
-  height: 80px;
   border: 1px solid var(--el-border-color-light);
   border-radius: 4px;
-  background: #f5f7fa;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f56c6c;
+  flex-shrink: 0;
+}
+
+.card-value {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.unit {
+  color: var(--el-text-color-secondary);
 }
 </style>

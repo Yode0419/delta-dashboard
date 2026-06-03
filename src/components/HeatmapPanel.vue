@@ -1,5 +1,6 @@
 <script setup lang="ts" name="HeatmapPanel">
 import KpiCard from "@/components/KpiCard.vue";
+import heatmapPreview from "@/assets/heatmap-preview.png";
 </script>
 
 <template>
@@ -7,7 +8,7 @@ import KpiCard from "@/components/KpiCard.vue";
     <template #header>
       <h2 class="text-h2">3D heatmap</h2>
     </template>
-    <div class="heatmap-placeholder" />
+    <img :src="heatmapPreview" class="heatmap-placeholder" />
     <div class="kpi-row">
       <KpiCard />
       <KpiCard />
@@ -33,8 +34,10 @@ import KpiCard from "@/components/KpiCard.vue";
 
 .heatmap-placeholder {
   flex: 1;
-  background: #f0f0f0;
+  width: 100%;
+  object-fit: contain;
   border-radius: 4px;
+  min-height: 0;
 }
 
 .kpi-row {

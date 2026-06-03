@@ -8,9 +8,9 @@
 - [x] `App.vue` 三欄 el-container 佈局（sidebar / main / detail）
 - [x] `AppSidebar.vue` icon nav 裝飾
 - [x] `AppHeader.vue` hardcode Running status、靜態計時器、進度條、Stop 按鈕（無邏輯）
-- [ ] `ObjectList.vue` hardcode 4 筆 object row
-- [ ] `ObjectDetail.vue` hardcode 單一 object 詳情 + 靜態 MetricCard
-- [ ] `MetricCard.vue` hardcode 數值 + status badge（無 sparkline）
+- [x] `ObjectList.vue` hardcode 4 筆 object row
+- [x] `ObjectDetail.vue` hardcode 單一 object 詳情 + 靜態 MetricCard
+- [x] `MetricCard.vue` hardcode 數值 + status badge（無 sparkline）
 
 ### Iteration 2 — 靜態資料驅動
 > 驗收：點擊 ObjectList 不同列，右欄內容跟著切換
@@ -59,6 +59,8 @@
 - 調整開發策略為 UI-first 迭代，更新計畫文件與待辦清單結構
 - 完成 Iteration 1 佈局骨架：建立所有 component（AppSidebar、AppHeader、HeatmapPanel、LogPanel、ObjectsPanel、ObjectList、ObjectDetail、MetricCard、KpiCard）
 - main.css 引入 Inter 字型並定義 typography utility class
+- 完成 Iteration 1 靜態 UI：ObjectList 改用 el-table（SVG 圖示欄、排序、highlight）、ObjectDetail 實作 summary 區塊、MetricCard 加入 alertDesc prop 與 footer、KpiCard 完成數值排版
+- 新增 ChangeVersionDialog.vue（el-dialog + radio 版本選擇表格、row-click 聯動）
 
 ### 2026-06-02
 - 初始化 git repo，推送至 GitHub（Yode0419/delta-dashboard）

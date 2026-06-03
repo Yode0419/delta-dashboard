@@ -5,9 +5,9 @@
 ### Iteration 1 — Layout Shell
 > 驗收：`npm run dev` 後看到完整三欄畫面，所有區塊有內容
 
-- [ ] `App.vue` 三欄 el-container 佈局（sidebar / main / detail）
-- [ ] `AppSidebar.vue` icon nav 裝飾
-- [ ] `AppHeader.vue` hardcode Running status、靜態計時器、進度條、Stop 按鈕（無邏輯）
+- [x] `App.vue` 三欄 el-container 佈局（sidebar / main / detail）
+- [x] `AppSidebar.vue` icon nav 裝飾
+- [x] `AppHeader.vue` hardcode Running status、靜態計時器、進度條、Stop 按鈕（無邏輯）
 - [ ] `ObjectList.vue` hardcode 4 筆 object row
 - [ ] `ObjectDetail.vue` hardcode 單一 object 詳情 + 靜態 MetricCard
 - [ ] `MetricCard.vue` hardcode 數值 + status badge（無 sparkline）
@@ -56,9 +56,9 @@
 ## 開發日誌
 
 ### 2026-06-03
-- 調整開發策略：從 bottom-up 瀑布式改為 UI-first 迭代，避免資料層卡關
-- 更新 prototype-plan.md「開發迭代與優先序」章節
-- 更新 progress.md 待辦清單結構，按 Iteration 1–5 分組
+- 調整開發策略為 UI-first 迭代，更新計畫文件與待辦清單結構
+- 完成 Iteration 1 佈局骨架：建立所有 component（AppSidebar、AppHeader、HeatmapPanel、LogPanel、ObjectsPanel、ObjectList、ObjectDetail、MetricCard、KpiCard）
+- main.css 引入 Inter 字型並定義 typography utility class
 
 ### 2026-06-02
 - 初始化 git repo，推送至 GitHub（Yode0419/delta-dashboard）

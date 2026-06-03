@@ -8,7 +8,7 @@ Automatically update `planning/progress.md` based on the current state of the pr
 4. Scan `src/` to check which files and components actually exist and appear functional.
 5. Based on the above, determine which checklist items are now complete and what was worked on since the last log entry.
 6. Update the checklist by marking completed items with `[x]`.
-7. Append a new dated entry to the Log section with a concise summary of what changed. Write in Chinese. Keep it factual and brief — what was added or changed, not how.
+7. Append a new dated entry to the Log section with a concise summary of what changed. Write in Chinese. Keep it to 1–3 bullet points maximum — group related changes together, omit implementation details and list only meaningful outcomes.
 
 ## Rules
 

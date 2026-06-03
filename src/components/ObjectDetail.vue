@@ -99,7 +99,7 @@ function alertDescFor(metricName: string): string | undefined {
 
 .object-detail {
   height: 100%;
-  padding: 16px;
+  padding: 0 16px 16px;
   overflow-y: auto;
 }
 
@@ -111,7 +111,7 @@ function alertDescFor(metricName: string): string | undefined {
   top: 0;
   background: #fff;
   z-index: 1;
-  padding-bottom: 8px;
+  padding: 16px 0 8px;
 }
 
 .summary-body {

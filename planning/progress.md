@@ -2,37 +2,63 @@
 
 ## 待辦清單
 
-### 基礎建設
-- [ ] `src/types/index.ts` — 所有 TypeScript interface
-- [ ] `src/data/mock.ts` — 時間序列劇本資料
-- [ ] `src/services/experimentService.ts` — async service 層
-- [ ] `src/stores/experiment.ts` — Pinia store 骨架
-- [ ] `App.vue` 三欄佈局（Element Plus）
-- [ ] `AppSidebar.vue`（裝飾用）
+### Iteration 1 — Layout Shell
+> 驗收：`npm run dev` 後看到完整三欄畫面，所有區塊有內容
 
-### 模擬引擎
-- [ ] `composables/useSimulation.ts` — tick 推進
-- [ ] `AppHeader.vue` — 狀態、計時器、進度條、Stop/Re-run
-- [ ] `ObjectList.vue` — 表格，reactive 更新
+- [ ] `App.vue` 三欄 el-container 佈局（sidebar / main / detail）
+- [ ] `AppSidebar.vue` icon nav 裝飾
+- [ ] `AppHeader.vue` hardcode Running status、靜態計時器、進度條、Stop 按鈕（無邏輯）
+- [ ] `ObjectList.vue` hardcode 4 筆 object row
+- [ ] `ObjectDetail.vue` hardcode 單一 object 詳情 + 靜態 MetricCard
+- [ ] `MetricCard.vue` hardcode 數值 + status badge（無 sparkline）
 
-### 物件詳情與指標
-- [ ] `ObjectDetail.vue` — 右欄 + 空狀態
-- [ ] `MetricCard.vue` — 數值、status badge、alert 描述
-- [ ] `SparklineChart.vue` — SVG 折線 + threshold 虛線
+### Iteration 2 — 靜態資料驅動
+> 驗收：點擊 ObjectList 不同列，右欄內容跟著切換
 
-### 版本流程
-- [ ] `ChangeVersionModal.vue` — 版本列表 + Apply
-- [ ] Apply 邏輯 — 空狀態 + ● 標記
-- [ ] Revert 按鈕
+- [ ] `src/types/index.ts` Experiment、ObjectItem、Metric、Version interface
+- [ ] `src/stores/experiment.ts` 固定 running 快照資料 + selectedObjectId
+- [ ] `ObjectList.vue` 改讀 store，點擊列更新 selectedObjectId
+- [ ] `ObjectDetail.vue` 改讀 store selectedObject
+- [ ] `AppHeader.vue` 改讀 store experiment status
 
-### 收尾
-- [ ] `LogPanel.vue` — tick 追加 log
-- [ ] Re-run — 重置模擬、清空 alerts
-- [ ] 視覺微調（對齊設計稿）
+### Iteration 3 — 版本流程
+> 驗收：完整走過 Demo 腳本步驟 3–7（Stop → ChangeVersion → Apply → Revert）
+
+- [ ] `AppHeader.vue` Stop 按鈕邏輯（store.stopExperiment），status 切換
+- [ ] `ChangeVersionModal.vue` el-dialog，版本列表 + Current/Last Run 標籤 + Apply
+- [ ] `store.applyVersion` 更新 currentVersion，標記 versionChanged
+- [ ] `ObjectList.vue` versionChanged 時顯示 ● 標記
+- [ ] `ObjectDetail.vue` Apply 後顯示空狀態
+- [ ] Revert 按鈕邏輯（store.revertVersion）
+
+### Iteration 4 — Simulation 引擎
+> 驗收：完整走過 Demo 腳本步驟 1–2（Running → 等待 → alert 自動出現）
+
+- [ ] `src/data/mock.ts` 完整 8-tick 時間序列劇本（含 script 欄位）
+- [ ] `src/composables/useSimulation.ts` setInterval tick 推進、pause/resume/reset
+- [ ] Pinia store 連接 simulation（tick 更新 metrics、觸發 alert、更新 progress）
+- [ ] `AppHeader.vue` 計時器改為 elapsed 秒數，進度條 reactive
+- [ ] `ObjectList.vue` status / alertCount reactive 更新
+- [ ] `MetricCard.vue` 數值隨 tick 更新，超 threshold 顯示 alert 描述
+- [ ] `SparklineChart.vue` SVG 折線 + threshold 虛線
+
+### Iteration 5 — 收尾
+> 驗收：完整走過整份 Demo 腳本（步驟 1–8）
+
+- [ ] `src/services/experimentService.ts` async service 包裝，components 不直接 import mock
+- [ ] `LogPanel.vue` 底部 log，隨 tick 追加
+- [ ] Re-run 邏輯：重置 simulation，清空 alerts
+- [ ] 視覺微調（顏色、間距對齊 Figma 設計稿）
+- [ ] README：架構說明、demo 腳本、技術選型理由
 
 ---
 
 ## 開發日誌
+
+### 2026-06-03
+- 調整開發策略：從 bottom-up 瀑布式改為 UI-first 迭代，避免資料層卡關
+- 更新 prototype-plan.md「開發迭代與優先序」章節
+- 更新 progress.md 待辦清單結構，按 Iteration 1–5 分組
 
 ### 2026-06-02
 - 初始化 git repo，推送至 GitHub（Yode0419/delta-dashboard）

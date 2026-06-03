@@ -206,38 +206,66 @@ thermalResistance script: [0.8, 0.9, 1.0, 1.1, 1.15, 1.2, 1.2, 1.2]
 
 ---
 
-## 開發階段與優先序
+## 開發迭代與優先序
 
-### Phase 1 — 基礎建設（先做，必要）
-- 專案初始化
-- `types/index.ts` 定義所有 interface
-- `data/mock.ts` 寫入完整劇本資料
-- `services/experimentService.ts` 所有 async 函式
-- Pinia store 骨架（狀態欄位 + actions 定義）
-- App.vue 三欄 layout（Element Plus el-container）
-- AppSidebar.vue（純裝飾）
+每個 iteration 結束都有可 demo 的成果，後期迭代疊加在前期基礎上，不互相阻擋。
 
-### Phase 2 — 模擬引擎（核心差異點）
-- `composables/useSimulation.ts` 完整實作
-- AppHeader.vue：Status / Duration 計時器 / 進度條 / Stop–Re-run 切換
-- ObjectList.vue：表格，status/alert/version 隨 tick reactive 更新
+### Iteration 1 — Layout Shell（目標：立刻有畫面）
+所有值直接 hardcode 在 template，不依賴 store 或 mock 資料。
 
-### Phase 3 — 互動流程
-- ObjectDetail.vue：點擊 ObjectList 切換右欄內容
-- MetricCard.vue：數值 + status badge
+- App.vue：三欄 el-container 佈局（sidebar / main / detail）
+- AppSidebar.vue：icon nav 裝飾
+- AppHeader.vue：hardcode「Running」status、計時器靜態顯示、進度條、Stop 按鈕（無邏輯）
+- ObjectList.vue：hardcode 4 筆 object row（Fan#2、ServerRack#1 等）
+- ObjectDetail.vue：hardcode 單一 object 詳情，靜態 MetricCard
+- MetricCard.vue：hardcode 數值 + status badge（無 sparkline）
+
+**驗收：`npm run dev` 開啟後能看到完整三欄畫面，所有區塊都有內容**
+
+### Iteration 2 — 靜態資料驅動（目標：真實資料 + 點擊互動）
+引入最小 types + store，資料仍是靜態快照（不需要 script 時間序列）。
+
+- `src/types/index.ts`：定義 Experiment、ObjectItem、Metric、Version interface
+- `src/stores/experiment.ts`：state 為固定 "running" 快照資料，含 selectedObjectId
+- ObjectList.vue 改為讀 store，點擊列 → 更新 selectedObjectId
+- ObjectDetail.vue 改為讀 store 的 selectedObject，顯示對應 metrics
+- AppHeader.vue 改為讀 store 的 experiment status
+
+**驗收：點擊 ObjectList 不同列，右欄內容跟著切換**
+
+### Iteration 3 — 版本流程（目標：Stop → Change Version → Apply 完整可 demo）
+面試最關鍵的互動流程，不需要 simulation 引擎。
+
+- AppHeader.vue：Stop 按鈕邏輯（store.stopExperiment），status 切換
+- ChangeVersionModal.vue：el-dialog，版本列表 + Current/Last Run 標籤 + Apply 按鈕
+- store.applyVersion：更新 object 的 currentVersion，標記 versionChanged
+- ObjectList.vue：versionChanged 時顯示 ● 標記
+- ObjectDetail.vue：Apply 後顯示空狀態
+- Revert 按鈕邏輯（store.revertVersion）
+
+**驗收：完整走過 Demo 腳本步驟 3–7（Stop → ChangeVersion → Apply → Revert）**
+
+### Iteration 4 — Simulation 引擎（目標：Running 動態效果）
+在已有畫面的基礎上疊加時間驅動。
+
+- `src/data/mock.ts`：加入完整 8-tick 時間序列劇本（script 欄位）
+- `src/composables/useSimulation.ts`：setInterval tick 推進、pause/resume/reset
+- Pinia store 連接 simulation：每 tick 更新 metrics、觸發 alert、更新 progress
+- AppHeader.vue：計時器改為真實 elapsed 秒數，進度條 reactive
+- ObjectList.vue：status / alertCount reactive 更新
+- MetricCard.vue：數值隨 tick 更新，超 threshold 顯示 alert 描述
 - SparklineChart.vue：SVG 折線 + threshold 虛線
-- Alert 顯示：MetricCard 下方 inline alert 描述
 
-### Phase 4 — 版本流程
-- ChangeVersionModal.vue：版本列表 + Current/Last Run 標籤 + Apply
-- Apply 邏輯：store.applyVersion → object 空狀態 + ● 標記
-- Revert 按鈕：store.revertVersion → 恢復原狀態
+**驗收：完整走過 Demo 腳本步驟 1–2（Running → 等待 → alert 自動出現）**
 
-### Phase 5 — 收尾（有時間再做）
-- LogPanel.vue：tick 追加 log 條目
-- Re-run：reset simulation，清空 alerts
-- 視覺微調（顏色、間距對齊設計稿）
-- README：說明架構、demo 腳本、技術選型理由
+### Iteration 5 — 收尾（目標：架構補齊 + 視覺調整）
+- `src/services/experimentService.ts`：將 store 的直接 mock import 改為 async service 包裝
+- LogPanel.vue：底部 log，隨 tick 追加
+- Re-run 邏輯：重置 simulation，清空 alerts
+- 視覺微調（顏色、間距對齊 Figma 設計稿）
+- README：架構說明、demo 腳本、技術選型理由
+
+**驗收：完整走過整份 Demo 腳本（步驟 1–8）**
 
 ---
 

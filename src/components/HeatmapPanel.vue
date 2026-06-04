@@ -1,10 +1,10 @@
 <script setup lang="ts" name="HeatmapPanel">
 import { storeToRefs } from 'pinia'
-import { useExperimentStore } from '@/stores/experiment'
+import { useMonitorStore } from '@/stores/monitor'
 import KpiCard from '@/components/KpiCard.vue'
 import heatmapPreview from '@/assets/heatmap-preview.png'
 
-const { kpiItems } = storeToRefs(useExperimentStore())
+const { kpiItems } = storeToRefs(useMonitorStore())
 </script>
 
 <template>

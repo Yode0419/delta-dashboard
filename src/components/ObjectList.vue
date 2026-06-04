@@ -1,14 +1,14 @@
 <script setup lang="ts" name="ObjectList">
 import { storeToRefs } from 'pinia'
-import { useExperimentStore } from '@/stores/experiment'
+import { useObjectStore } from '@/stores/object'
 import StatusCell from '@/components/StatusCell.vue'
 import objectModelSvg from '@/assets/object-model-sm.svg'
 
-const store = useExperimentStore()
-const { objects, selectedObjectId } = storeToRefs(store)
+const objectStore = useObjectStore()
+const { objects, selectedObjectId } = storeToRefs(objectStore)
 
 function handleRowClick(row: { id: string }) {
-  store.selectObject(row.id)
+  objectStore.selectObject(row.id)
 }
 
 const severityOrder: Record<string, number> = { critical: 3, warning: 2, normal: 1 }

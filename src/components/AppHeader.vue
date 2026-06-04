@@ -2,9 +2,10 @@
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useExperimentStore } from '@/stores/experiment'
+import { useExperimentSession } from '@/composables/useExperimentSession'
 
-const store = useExperimentStore()
-const { experiment } = storeToRefs(store)
+const { experiment } = storeToRefs(useExperimentStore())
+const { stopExperiment, rerun } = useExperimentSession()
 
 const statusLabel: Record<string, string> = {
   running: 'Running',
@@ -23,31 +24,36 @@ const durationDisplay = computed(() => formatDuration(experiment.value.duration)
 </script>
 
 <template>
-  <div class="header">
-    <span class="title text-h1">{{ experiment.name }}</span>
-    <div class="header-right">
-      <div class="stat">
-        <span class="stat-label text-data-label">Status</span>
-        <span class="stat-value text-h1" :class="experiment.status">
-          {{ statusLabel[experiment.status] }}
-        </span>
+  <div>
+    <div class="header">
+      <span class="title text-h1">{{ experiment.name }}</span>
+      <div class="header-right">
+        <div class="stat">
+          <span class="stat-label text-data-label">Status</span>
+          <span class="stat-value text-h1" :class="experiment.status">
+            {{ statusLabel[experiment.status] }}
+          </span>
+        </div>
+        <div class="stat">
+          <span class="stat-label text-data-label">Duration</span>
+          <span class="stat-value text-h1">{{ durationDisplay }}</span>
+        </div>
+        <el-button
+          v-if="experiment.status === 'running'"
+          class="cta-btn"
+          size="large"
+          type="danger"
+          plain
+          @click="stopExperiment()"
+        >
+          Stop
+        </el-button>
+        <el-button v-else class="cta-btn" size="large" type="primary" @click="rerun()">
+          Re-run
+        </el-button>
       </div>
-      <div class="stat">
-        <span class="stat-label text-data-label">Duration</span>
-        <span class="stat-value text-h1">{{ durationDisplay }}</span>
-      </div>
-      <el-button
-        v-if="experiment.status === 'running'"
-        class="cta-btn"
-        size="large"
-        type="danger"
-        plain
-        @click="store.stopExperiment()"
-      >
-        Stop
-      </el-button>
-      <el-button v-else class="cta-btn" size="large" type="primary"> Re-run </el-button>
     </div>
+    <el-progress class="flat-progress" :percentage="experiment.progress" :show-text="false" :stroke-width="6" />
   </div>
 </template>
 
@@ -98,5 +104,10 @@ const durationDisplay = computed(() => formatDuration(experiment.value.duration)
 
 .cta-btn {
   width: 120px;
+}
+
+:deep(.flat-progress .el-progress-bar__outer),
+:deep(.flat-progress .el-progress-bar__inner) {
+  border-radius: 0;
 }
 </style>

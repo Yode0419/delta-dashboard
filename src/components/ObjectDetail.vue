@@ -2,21 +2,16 @@
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useExperimentStore } from '@/stores/experiment'
+import { useObjectStore } from '@/stores/object'
+import { useExperimentSession } from '@/composables/useExperimentSession'
 import MetricCard from '@/components/MetricCard.vue'
 import ChangeVersionDialog from '@/components/ChangeVersionDialog.vue'
 import StatusCell from '@/components/StatusCell.vue'
 import objectModelSvg from '@/assets/object-model.svg'
 
-const store = useExperimentStore()
-const {
-  selectedObject,
-  selectedMetrics,
-  selectedAlerts,
-  experiment,
-  displayStatus,
-  displayAlertCount,
-  lastRunVersion,
-} = storeToRefs(store)
+const { experiment } = storeToRefs(useExperimentStore())
+const { selectedObject, displayStatus, displayAlertCount } = storeToRefs(useObjectStore())
+const { selectedMetrics, selectedAlerts, lastRunVersion, selectedObjectDescription, revertVersion } = useExperimentSession()
 
 const dialogVisible = ref(false)
 
@@ -57,7 +52,7 @@ function alertDescFor(metricName: string): string | undefined {
           </div>
         </div>
       </div>
-      <p class="text-body description">{{ selectedObject.description }}</p>
+      <p class="text-body description">{{ selectedObjectDescription }}</p>
     </div>
 
     <el-divider />
@@ -67,7 +62,7 @@ function alertDescFor(metricName: string): string | undefined {
         No results yet.<br />
         Re-run to see results for {{ selectedObject.currentVersion }}.
       </p>
-      <el-button @click="store.revertVersion()">Revert to {{ lastRunVersion }}</el-button>
+      <el-button @click="revertVersion()">Revert to {{ lastRunVersion }}</el-button>
     </div>
     <div v-else-if="selectedMetrics.length" class="metrics">
       <MetricCard

@@ -59,6 +59,8 @@
 - 完成 Iteration 3：Stop/Re-run、applyVersion、revertVersion 流程全部連線
 - 新增 StatusCell.vue，統一 status 顯示；修正 mock data currentVersion 與 lastRun 一致性
 - 加入 `.prettierrc`（no semi、single quote），並對全專案執行 Prettier，統一程式碼風格
+- 重構 store 架構（Iteration 4 前置）：`experiment.ts` 拆為 4 個 domain store，新增 `useExperimentSession` composable 協調跨 store 業務邏輯；`AppHeader` 進度條串接 `experiment.progress`
+- ObjectDetail description 改從 `Version.description` 取得，所有 object 補齊版本資料；`ObjectItem.description` 欄位移除
 
 ### 2026-06-03
 - 調整開發策略為 UI-first 迭代，更新計畫文件與待辦清單結構

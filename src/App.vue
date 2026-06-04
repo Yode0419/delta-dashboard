@@ -11,7 +11,6 @@ import ObjectsPanel from '@/components/ObjectsPanel.vue'
     <AppSidebar />
     <div class="main-area">
       <AppHeader />
-      <el-progress class="flat-progress" :percentage="88" :show-text="false" :stroke-width="6" />
       <div class="content-area">
         <el-row :gutter="16" class="content-row">
           <el-col :span="10" class="left-col">
@@ -64,8 +63,4 @@ import ObjectsPanel from '@/components/ObjectsPanel.vue'
   height: 100%;
 }
 
-:deep(.flat-progress .el-progress-bar__outer),
-:deep(.flat-progress .el-progress-bar__inner) {
-  border-radius: 0;
-}
 </style>

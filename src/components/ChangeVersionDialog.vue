@@ -1,14 +1,15 @@
 <script setup lang="ts" name="ChangeVersionDialog">
 import { ref, watch, computed } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useExperimentStore } from '@/stores/experiment'
+import { useObjectStore } from '@/stores/object'
+import { useExperimentSession } from '@/composables/useExperimentSession'
 import type { Version } from '@/types'
 import objectModelSvg from '@/assets/object-model.svg'
 
 const visible = defineModel<boolean>()
 
-const store = useExperimentStore()
-const { selectedObject, selectedVersions } = storeToRefs(store)
+const { selectedObject } = storeToRefs(useObjectStore())
+const { selectedVersions, applyVersion } = useExperimentSession()
 
 const currentVersionId = computed(() => selectedVersions.value.find((v) => v.isCurrent)?.id ?? null)
 
@@ -25,7 +26,7 @@ function onCancel() {
 
 function onApply() {
   if (selectedVersionId.value) {
-    store.applyVersion(selectedVersionId.value)
+    applyVersion(selectedVersionId.value)
   }
   visible.value = false
 }

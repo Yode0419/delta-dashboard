@@ -17,7 +17,6 @@ export interface ObjectItem {
   currentVersion: string
   previousVersion: string | null
   versionChanged: boolean
-  description: string
 }
 
 export interface Version {

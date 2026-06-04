@@ -1,6 +1,7 @@
 <script setup lang="ts" name="MetricCard">
 import type { Metric } from '@/types'
 import StatusCell from '@/components/StatusCell.vue'
+import SparklineChart from '@/components/SparklineChart.vue'
 
 defineProps<{
   metric: Metric
@@ -18,7 +19,12 @@ defineProps<{
       <span class="text-h2">{{ metric.value }}</span>
       <span class="text-data-label unit">{{ metric.unit }}</span>
     </div>
-    <div class="chart-placeholder" />
+    <SparklineChart
+      :history="metric.history"
+      :warning-threshold="metric.warningThreshold"
+      :critical-threshold="metric.criticalThreshold"
+      :unit="metric.unit"
+    />
     <div v-if="alertDesc" class="card-footer">
       <p class="text-caption alert-desc">{{ alertDesc }}</p>
     </div>
@@ -49,12 +55,6 @@ defineProps<{
 
 .unit {
   color: var(--el-text-color-secondary);
-}
-
-.chart-placeholder {
-  height: 80px;
-  background: var(--el-fill-color-light);
-  border-radius: 4px;
 }
 
 .card-footer {

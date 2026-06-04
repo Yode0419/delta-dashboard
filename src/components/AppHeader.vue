@@ -21,6 +21,7 @@ function formatDuration(seconds: number): string {
 }
 
 const durationDisplay = computed(() => formatDuration(experiment.value.duration))
+
 </script>
 
 <template>
@@ -54,10 +55,11 @@ const durationDisplay = computed(() => formatDuration(experiment.value.duration)
       </div>
     </div>
     <el-progress
+      v-if="experiment.status !== 'stopped'"
       class="flat-progress"
       :percentage="experiment.progress"
-      :show-text="false"
-      :stroke-width="6"
+      text-inside
+      :stroke-width="16"
     />
   </div>
 </template>
@@ -80,13 +82,14 @@ const durationDisplay = computed(() => formatDuration(experiment.value.duration)
 .header-right {
   display: flex;
   align-items: center;
-  gap: 48px;
+  gap: 32px;
 }
 
 .stat {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  min-width: 140px;
 }
 
 .stat-label {
@@ -101,7 +104,7 @@ const durationDisplay = computed(() => formatDuration(experiment.value.duration)
   color: var(--el-color-primary);
 }
 .stat-value.stopped {
-  color: #f56c6c;
+  color: #909399;
 }
 .stat-value.completed {
   color: #909399;

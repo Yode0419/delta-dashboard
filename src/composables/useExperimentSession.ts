@@ -1,4 +1,5 @@
 import { computed } from 'vue'
+import { ElNotification } from 'element-plus'
 import { useExperimentStore } from '@/stores/experiment'
 import { useObjectStore } from '@/stores/object'
 import { useMonitorStore } from '@/stores/monitor'
@@ -77,6 +78,13 @@ export function useExperimentSession() {
 
   function stopExperiment() {
     experimentStore.stop()
+    ElNotification({
+      title: 'Experiment Stopped',
+      type: 'error',
+      position: 'top-right',
+      offset: 72,
+      duration: 2000,
+    })
   }
 
   function rerun() {

@@ -1,4 +1,5 @@
 import { ref, watch } from 'vue'
+import { ElNotification } from 'element-plus'
 import { useExperimentStore } from '@/stores/experiment'
 import { useMonitorStore } from '@/stores/monitor'
 import { useObjectStore } from '@/stores/object'
@@ -29,6 +30,13 @@ export function useSimulation() {
     if (isLast) {
       stop()
       experimentStore.complete()
+      ElNotification({
+        title: 'Experiment Completed',
+        type: 'success',
+        position: 'top-right',
+        offset: 72,
+        duration: 2000,
+      })
     }
   }
 
@@ -51,6 +59,13 @@ export function useSimulation() {
       if (newStatus === 'running' && oldStatus !== 'running') {
         currentTick.value = 0
         start()
+        ElNotification({
+          title: 'Experiment Started',
+          type: 'primary',
+          position: 'top-right',
+          offset: 72,
+          duration: 2000,
+        })
       } else if (newStatus !== 'running') {
         stop()
       }

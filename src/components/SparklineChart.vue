@@ -22,10 +22,10 @@ const props = defineProps<{
 
 const lineColor = computed(() => {
   const last = props.history.at(-1)
-  if (last === undefined) return '#409eff'
+  if (last === undefined) return '#43a43c'
   if (last >= props.criticalThreshold) return '#f56c6c'
   if (last >= props.warningThreshold) return '#e6a23c'
-  return '#409eff'
+  return '#43a43c'
 })
 
 const chartData = computed(() => {

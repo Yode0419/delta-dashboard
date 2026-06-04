@@ -107,4 +107,5 @@ function onApply() {
 .info-label {
   color: var(--el-text-color-secondary);
 }
+
 </style>

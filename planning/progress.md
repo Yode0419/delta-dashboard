@@ -48,7 +48,7 @@
 - [ ] `src/services/experimentService.ts` async service 包裝，components 不直接 import mock
 - [x] `LogPanel.vue` 底部 log，隨 tick 追加
 - [x] Re-run 邏輯：重置 simulation，清空 alerts
-- [ ] 視覺微調（顏色、間距對齊 Figma 設計稿）
+- [x] 視覺微調（顏色、間距對齊 Figma 設計稿）
 - [ ] README：架構說明、demo 腳本、技術選型理由
 
 ---
@@ -67,6 +67,8 @@
 - KpiCard 串接 simulation：新增 `mockKpi.ts`，KPI 流程與 Metric 對齊；初始顯示 `-`，tick 後更新值與狀態燈號
 - 完成 SparklineChart.vue：即時折線 + threshold 虛線，顏色隨狀態變色
 - 修正 re-run 版本被重置 bug；`Metric.value` 改為 nullable，初始顯示 `-`；新增 `Metric.label` 分離顯示名稱與 identifier
+- AppHeader 進度條加入百分比顯示、stopped 時隱藏；Status / Duration 欄固定寬度防止跳動
+- 實驗開始、中止、完成時觸發 ElNotification（右上角 offset 避開 header，2 秒自動關閉）
 
 ### 2026-06-03
 - 調整開發策略為 UI-first 迭代，更新計畫文件與待辦清單結構

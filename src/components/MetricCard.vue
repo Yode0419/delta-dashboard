@@ -17,7 +17,7 @@ defineProps<{
     </div>
     <div class="card-value">
       <span class="text-h2">{{ metric.value ?? '-' }}</span>
-      <span class="text-data-label unit">{{ metric.value !== null ? metric.unit : '' }}</span>
+      <span class="text-body-cap">{{ metric.value !== null ? metric.unit : '' }}</span>
     </div>
     <SparklineChart
       :history="metric.history"
@@ -51,10 +51,6 @@ defineProps<{
   display: flex;
   align-items: baseline;
   gap: 6px;
-}
-
-.unit {
-  color: var(--el-text-color-secondary);
 }
 
 .card-footer {

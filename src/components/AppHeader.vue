@@ -87,7 +87,7 @@ const durationDisplay = computed(() => formatDuration(experiment.value.duration)
 }
 
 .stat-value.running {
-  color: #67c23a;
+  color: var(--el-color-primary);
 }
 .stat-value.stopped {
   color: #f56c6c;

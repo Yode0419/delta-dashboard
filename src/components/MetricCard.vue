@@ -1,26 +1,18 @@
 <script setup lang="ts" name="MetricCard">
 import type { Metric } from '@/types'
+import StatusCell from '@/components/StatusCell.vue'
 
 defineProps<{
   metric: Metric
   alertDesc?: string
 }>()
-
-const statusLabel: Record<string, string> = {
-  normal: 'Normal',
-  warning: 'Warning',
-  critical: 'Critical',
-}
 </script>
 
 <template>
   <div class="metric-card">
     <div class="card-header">
       <span class="text-data-label">{{ metric.name }}</span>
-      <span class="status-badge">
-        <span class="status-dot" :class="metric.status" />
-        <span class="text-data-label">{{ statusLabel[metric.status] }}</span>
-      </span>
+      <StatusCell :status="metric.status" />
     </div>
     <div class="card-value">
       <span class="text-h2">{{ metric.value }}</span>
@@ -47,29 +39,6 @@ const statusLabel: Record<string, string> = {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.status-badge {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.status-dot.normal {
-  background: #67c23a;
-}
-.status-dot.warning {
-  background: #e6a23c;
-}
-.status-dot.critical {
-  background: #f56c6c;
 }
 
 .card-value {

@@ -1,9 +1,9 @@
 <script setup lang="ts" name="App">
-import AppSidebar from "@/components/AppSidebar.vue";
-import AppHeader from "@/components/AppHeader.vue";
-import HeatmapPanel from "@/components/HeatmapPanel.vue";
-import LogPanel from "@/components/LogPanel.vue";
-import ObjectsPanel from "@/components/ObjectsPanel.vue";
+import AppSidebar from '@/components/AppSidebar.vue'
+import AppHeader from '@/components/AppHeader.vue'
+import HeatmapPanel from '@/components/HeatmapPanel.vue'
+import LogPanel from '@/components/LogPanel.vue'
+import ObjectsPanel from '@/components/ObjectsPanel.vue'
 </script>
 
 <template>

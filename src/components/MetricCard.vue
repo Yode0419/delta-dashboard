@@ -1,16 +1,16 @@
 <script setup lang="ts" name="MetricCard">
-import type { Metric } from "@/types";
+import type { Metric } from '@/types'
 
 defineProps<{
-  metric: Metric;
-  alertDesc?: string;
-}>();
+  metric: Metric
+  alertDesc?: string
+}>()
 
 const statusLabel: Record<string, string> = {
-  normal: "Normal",
-  warning: "Warning",
-  critical: "Critical",
-};
+  normal: 'Normal',
+  warning: 'Warning',
+  critical: 'Critical',
+}
 </script>
 
 <template>

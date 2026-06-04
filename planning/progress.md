@@ -58,6 +58,7 @@
 ### 2026-06-04
 - 完成 Iteration 3：Stop/Re-run、applyVersion、revertVersion 流程全部連線
 - 新增 StatusCell.vue，統一 status 顯示；修正 mock data currentVersion 與 lastRun 一致性
+- 加入 `.prettierrc`（no semi、single quote），並對全專案執行 Prettier，統一程式碼風格
 
 ### 2026-06-03
 - 調整開發策略為 UI-first 迭代，更新計畫文件與待辦清單結構

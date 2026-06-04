@@ -1,25 +1,25 @@
 <script setup lang="ts" name="AppHeader">
-import { computed } from "vue";
-import { storeToRefs } from "pinia";
-import { useExperimentStore } from "@/stores/experiment";
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useExperimentStore } from '@/stores/experiment'
 
-const store = useExperimentStore();
-const { experiment } = storeToRefs(store);
+const store = useExperimentStore()
+const { experiment } = storeToRefs(store)
 
 const statusLabel: Record<string, string> = {
-  running: "Running",
-  completed: "Completed",
-  stopped: "Stopped",
-};
-
-function formatDuration(seconds: number): string {
-  const h = Math.floor(seconds / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = seconds % 60;
-  return [h, m, s].map((v) => String(v).padStart(2, "0")).join(":");
+  running: 'Running',
+  completed: 'Completed',
+  stopped: 'Stopped',
 }
 
-const durationDisplay = computed(() => formatDuration(experiment.value.duration));
+function formatDuration(seconds: number): string {
+  const h = Math.floor(seconds / 3600)
+  const m = Math.floor((seconds % 3600) / 60)
+  const s = seconds % 60
+  return [h, m, s].map((v) => String(v).padStart(2, '0')).join(':')
+}
+
+const durationDisplay = computed(() => formatDuration(experiment.value.duration))
 </script>
 
 <template>

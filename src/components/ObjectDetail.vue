@@ -1,13 +1,13 @@
 <script setup lang="ts" name="ObjectDetail">
-import { ref } from "vue";
-import { storeToRefs } from "pinia";
-import { useExperimentStore } from "@/stores/experiment";
-import MetricCard from "@/components/MetricCard.vue";
-import ChangeVersionDialog from "@/components/ChangeVersionDialog.vue";
-import StatusCell from "@/components/StatusCell.vue";
-import objectModelSvg from "@/assets/object-model.svg";
+import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useExperimentStore } from '@/stores/experiment'
+import MetricCard from '@/components/MetricCard.vue'
+import ChangeVersionDialog from '@/components/ChangeVersionDialog.vue'
+import StatusCell from '@/components/StatusCell.vue'
+import objectModelSvg from '@/assets/object-model.svg'
 
-const store = useExperimentStore();
+const store = useExperimentStore()
 const {
   selectedObject,
   selectedMetrics,
@@ -16,12 +16,12 @@ const {
   displayStatus,
   displayAlertCount,
   lastRunVersion,
-} = storeToRefs(store);
+} = storeToRefs(store)
 
-const dialogVisible = ref(false);
+const dialogVisible = ref(false)
 
 function alertDescFor(metricName: string): string | undefined {
-  return selectedAlerts.value.find((a) => a.metric === metricName)?.description;
+  return selectedAlerts.value.find((a) => a.metric === metricName)?.description
 }
 </script>
 
@@ -49,7 +49,7 @@ function alertDescFor(metricName: string): string | undefined {
           </div>
           <div class="stat">
             <span class="text-data-label stat-label">Alert</span>
-            <span class="text-data-value">{{ displayAlertCount ?? "-" }}</span>
+            <span class="text-data-value">{{ displayAlertCount ?? '-' }}</span>
           </div>
           <div class="stat">
             <span class="text-data-label stat-label">Version</span>

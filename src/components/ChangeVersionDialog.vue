@@ -10,9 +10,7 @@ const visible = defineModel<boolean>()
 const store = useExperimentStore()
 const { selectedObject, selectedVersions } = storeToRefs(store)
 
-const currentVersionId = computed(
-  () => selectedVersions.value.find((v) => v.isCurrent)?.id ?? null,
-)
+const currentVersionId = computed(() => selectedVersions.value.find((v) => v.isCurrent)?.id ?? null)
 
 const selectedVersionId = ref<string | null>(null)
 

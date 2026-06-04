@@ -63,7 +63,6 @@ function sortByStatus(a: { status: string }, b: { status: string }) {
   justify-content: center;
 }
 
-
 .version-cell {
   display: flex;
   align-items: center;

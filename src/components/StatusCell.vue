@@ -32,7 +32,13 @@ const statusLabel: Record<MetricStatus, string> = {
   flex-shrink: 0;
 }
 
-.status-dot.normal   { background: #67c23a; }
-.status-dot.warning  { background: #e6a23c; }
-.status-dot.critical { background: #f56c6c; }
+.status-dot.normal {
+  background: #67c23a;
+}
+.status-dot.warning {
+  background: #e6a23c;
+}
+.status-dot.critical {
+  background: #f56c6c;
+}
 </style>

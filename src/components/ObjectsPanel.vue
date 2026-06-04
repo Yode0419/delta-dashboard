@@ -43,5 +43,4 @@ import ObjectDetail from '@/components/ObjectDetail.vue'
 .col-block:first-child {
   border-right: 1px solid var(--el-border-color-light);
 }
-
 </style>

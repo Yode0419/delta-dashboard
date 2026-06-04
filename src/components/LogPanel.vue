@@ -70,5 +70,6 @@ watch(
 .time {
   flex-shrink: 0;
   color: #909399;
+  font-variant-numeric: tabular-nums;
 }
 </style>

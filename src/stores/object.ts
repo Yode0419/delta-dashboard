@@ -60,7 +60,9 @@ export const useObjectStore = defineStore('object', () => {
           ? 'warning'
           : 'normal'
 
-      obj.alertCount = alerts.filter((a) => a.objectId === obj.id).length
+      obj.alertCount = new Set(
+        alerts.filter((a) => a.objectId === obj.id).map((a) => a.metric),
+      ).size
     }
   }
 

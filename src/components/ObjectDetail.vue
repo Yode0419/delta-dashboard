@@ -11,7 +11,13 @@ import objectModelSvg from '@/assets/object-model.svg'
 
 const { experiment } = storeToRefs(useExperimentStore())
 const { selectedObject, displayStatus, displayAlertCount } = storeToRefs(useObjectStore())
-const { selectedMetrics, selectedAlerts, lastRunVersion, selectedObjectDescription, revertVersion } = useExperimentSession()
+const {
+  selectedMetrics,
+  selectedAlerts,
+  lastRunVersion,
+  selectedObjectDescription,
+  revertVersion,
+} = useExperimentSession()
 
 const dialogVisible = ref(false)
 

@@ -6,10 +6,14 @@ import { useMonitorStore } from '@/stores/monitor'
 const { logs } = storeToRefs(useMonitorStore())
 const listEl = ref<HTMLDivElement | null>(null)
 
-watch(logs, async () => {
-  await nextTick()
-  if (listEl.value) listEl.value.scrollTop = listEl.value.scrollHeight
-}, { deep: true })
+watch(
+  logs,
+  async () => {
+    await nextTick()
+    if (listEl.value) listEl.value.scrollTop = listEl.value.scrollHeight
+  },
+  { deep: true },
+)
 </script>
 
 <template>

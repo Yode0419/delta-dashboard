@@ -1,4 +1,5 @@
 export { mockExperiment } from './mockExperiment'
 export { mockObjects } from './mockObjects'
 export { mockMetricTemplates } from './mockMetricTemplates'
-export { mockVersionsMap, mockAlerts, mockKpiItems } from './mockMonitor'
+export { mockVersionsMap, mockAlerts } from './mockMonitor'
+export { mockKpiTemplates } from './mockKpi'

@@ -8,10 +8,10 @@ defineProps<{ item: KpiItem }>()
   <div class="kpi-card">
     <div class="card-header">
       <span class="text-data-label">{{ item.label }}</span>
-      <span class="status-dot" :class="item.status" />
+      <span v-if="item.status !== null" class="status-dot" :class="item.status" />
     </div>
     <div class="card-value">
-      <span class="text-h1">{{ item.value }}</span>
+      <span class="text-h1">{{ item.value !== null ? item.value : '-' }}</span>
       <span class="text-body unit">{{ item.unit }}</span>
     </div>
   </div>

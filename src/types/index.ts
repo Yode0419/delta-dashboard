@@ -50,9 +50,13 @@ export interface Alert {
 
 export interface KpiItem {
   label: string
-  value: number
+  value: number | null
   unit: string
-  status: MetricStatus
+  status: MetricStatus | null
+  script: number[]
+  warningThreshold: number
+  criticalThreshold: number
+  lowerIsBetter: boolean
 }
 
 export interface LogEntry {

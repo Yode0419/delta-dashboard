@@ -19,6 +19,7 @@ export function useSimulation() {
     const isLast = t >= TOTAL_TICKS
 
     monitorStore.tickMetrics(t)
+    monitorStore.tickKpis(t)
     monitorStore.pushAlert(t)
     monitorStore.appendLog(t, isLast)
     objectStore.updateAllStatusFromMetrics(monitorStore.metricsMap, monitorStore.alerts)

@@ -47,10 +47,7 @@ export const useObjectStore = defineStore('object', () => {
     obj.status = saved.status
   }
 
-  function updateAllStatusFromMetrics(
-    metricsMap: Record<string, Metric[]>,
-    alerts: Alert[],
-  ) {
+  function updateAllStatusFromMetrics(metricsMap: Record<string, Metric[]>, alerts: Alert[]) {
     for (const obj of objects.value) {
       if (obj.versionChanged) continue
       const metrics = metricsMap[obj.id]

@@ -260,7 +260,8 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
       noiseRange: 1,
       warningThreshold: 55,
       criticalThreshold: 70,
-      warningMessage: 'Chassis internal temperature elevated,verify fan operation and cable routing',
+      warningMessage:
+        'Chassis internal temperature elevated,verify fan operation and cable routing',
       criticalMessage: 'Chassis internal temperature critical,risk of component damage',
     },
   ],
@@ -273,7 +274,8 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
       noiseRange: 1,
       warningThreshold: 55,
       criticalThreshold: 70,
-      warningMessage: 'Chassis internal temperature elevated,verify fan operation and cable routing',
+      warningMessage:
+        'Chassis internal temperature elevated,verify fan operation and cable routing',
       criticalMessage: 'Chassis internal temperature critical,risk of component damage',
     },
   ],

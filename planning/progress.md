@@ -34,20 +34,20 @@
 ### Iteration 4 — Simulation 引擎
 > 驗收：完整走過 Demo 腳本步驟 1–2（Running → 等待 → alert 自動出現）
 
-- [ ] `src/data/mock.ts` 完整 8-tick 時間序列劇本（含 script 欄位）
-- [ ] `src/composables/useSimulation.ts` setInterval tick 推進、pause/resume/reset
-- [ ] Pinia store 連接 simulation（tick 更新 metrics、觸發 alert、更新 progress）
-- [ ] `AppHeader.vue` 計時器改為 elapsed 秒數，進度條 reactive
-- [ ] `ObjectList.vue` status / alertCount reactive 更新
-- [ ] `MetricCard.vue` 數值隨 tick 更新，超 threshold 顯示 alert 描述
+- [x] `src/data/mock.ts` 動態 script 生成器（drift+noise per tick，tick 數可設定）
+- [x] `src/composables/useSimulation.ts` setInterval tick 推進、pause/resume/reset
+- [x] Pinia store 連接 simulation（tick 更新 metrics、觸發 alert、更新 progress）
+- [x] `AppHeader.vue` 計時器改為 elapsed 秒數，進度條 reactive
+- [x] `ObjectList.vue` status / alertCount reactive 更新
+- [x] `MetricCard.vue` 數值隨 tick 更新，超 threshold 顯示 alert 描述
 - [ ] `SparklineChart.vue` 使用 vue-chartjs（Chart.js wrapper），折線 + threshold 虛線
 
 ### Iteration 5 — 收尾
 > 驗收：完整走過整份 Demo 腳本（步驟 1–8）
 
 - [ ] `src/services/experimentService.ts` async service 包裝，components 不直接 import mock
-- [ ] `LogPanel.vue` 底部 log，隨 tick 追加
-- [ ] Re-run 邏輯：重置 simulation，清空 alerts
+- [x] `LogPanel.vue` 底部 log，隨 tick 追加
+- [x] Re-run 邏輯：重置 simulation，清空 alerts
 - [ ] 視覺微調（顏色、間距對齊 Figma 設計稿）
 - [ ] README：架構說明、demo 腳本、技術選型理由
 
@@ -61,6 +61,10 @@
 - 加入 `.prettierrc`（no semi、single quote），並對全專案執行 Prettier，統一程式碼風格
 - 重構 store 架構（Iteration 4 前置）：`experiment.ts` 拆為 4 個 domain store，新增 `useExperimentSession` composable 協調跨 store 業務邏輯；`AppHeader` 進度條串接 `experiment.progress`
 - ObjectDetail description 改從 `Version.description` 取得，所有 object 補齊版本資料；`ObjectItem.description` 欄位移除
+- 完成 Iteration 4 核心：以 drift+noise generator 取代固定腳本，每次 re-run 產生不同軌跡；所有 14 個 object 補齊 metrics 與第二版本；store 全面串接 tick 驅動（metrics/alerts/logs/progress）
+- mock.ts 拆分為 5 個 domain 檔案（barrel 模式）；alert 描述 inline 產生，不再依賴獨立函數
+- `ObjectItem.status` 與 `Metric.status` 初始為 `null`，首次 tick 後才計算；修正 re-run 閃爍 bug（mockObjects 深拷貝 + reset 順序）
+- KpiCard 串接 simulation：新增 `mockKpi.ts`，KPI 流程與 Metric 對齊；初始顯示 `-`，tick 後更新值與狀態燈號
 
 ### 2026-06-03
 - 調整開發策略為 UI-first 迭代，更新計畫文件與待辦清單結構

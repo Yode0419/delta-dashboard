@@ -1,4 +1,4 @@
-import type { Version, Alert, KpiItem } from '@/types'
+import type { Version, Alert } from '@/types'
 
 export const mockVersionsMap: Record<string, Version[]> = {
   'fan-1': [
@@ -302,10 +302,3 @@ export const mockVersionsMap: Record<string, Version[]> = {
 }
 
 export const mockAlerts: Alert[] = []
-
-export const mockKpiItems: KpiItem[] = [
-  { label: 'Peak Temp', value: 94, unit: '°C', status: 'critical' },
-  { label: 'Avg Fan Speed', value: 3200, unit: 'RPM', status: 'warning' },
-  { label: 'Total Power', value: 340, unit: 'W', status: 'normal' },
-  { label: 'Avg Efficiency', value: 87, unit: '%', status: 'normal' },
-]

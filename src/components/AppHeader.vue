@@ -53,7 +53,12 @@ const durationDisplay = computed(() => formatDuration(experiment.value.duration)
         </el-button>
       </div>
     </div>
-    <el-progress class="flat-progress" :percentage="experiment.progress" :show-text="false" :stroke-width="6" />
+    <el-progress
+      class="flat-progress"
+      :percentage="experiment.progress"
+      :show-text="false"
+      :stroke-width="6"
+    />
   </div>
 </template>
 

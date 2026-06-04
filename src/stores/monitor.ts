@@ -1,20 +1,43 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Metric, Alert, KpiItem, LogEntry, MetricStatus } from '@/types'
-import { mockMetricTemplates, mockAlerts, mockKpiItems } from '@/data/mock'
-import { generateMetricsMap } from '@/data/scriptGenerator'
+import { mockMetricTemplates, mockAlerts, mockKpiTemplates } from '@/data/mock'
+import { generateMetricsMap, generateKpiItems } from '@/data/scriptGenerator'
 import { TOTAL_TICKS } from '@/data/simulationConfig'
 
 export const useMonitorStore = defineStore('monitor', () => {
-  const metricsMap = ref<Record<string, Metric[]>>(generateMetricsMap(mockMetricTemplates, TOTAL_TICKS))
+  const metricsMap = ref<Record<string, Metric[]>>(
+    generateMetricsMap(mockMetricTemplates, TOTAL_TICKS),
+  )
   const alerts = ref<Alert[]>(JSON.parse(JSON.stringify(mockAlerts)))
-  const kpiItems = ref<KpiItem[]>(mockKpiItems)
+  const kpiItems = ref<KpiItem[]>(generateKpiItems(mockKpiTemplates, TOTAL_TICKS))
   const logs = ref<LogEntry[]>([])
 
   function computeStatus(value: number, metric: Metric): MetricStatus {
     if (value >= metric.criticalThreshold) return 'critical'
     if (value >= metric.warningThreshold) return 'warning'
     return 'normal'
+  }
+
+  function computeKpiStatus(value: number, item: KpiItem): MetricStatus {
+    if (item.lowerIsBetter) {
+      if (value <= item.criticalThreshold) return 'critical'
+      if (value <= item.warningThreshold) return 'warning'
+      return 'normal'
+    }
+    if (value >= item.criticalThreshold) return 'critical'
+    if (value >= item.warningThreshold) return 'warning'
+    return 'normal'
+  }
+
+  function tickKpis(tick: number) {
+    const idx = tick - 1
+    for (const item of kpiItems.value) {
+      const value = item.script[idx]
+      if (value === undefined) continue
+      item.value = value
+      item.status = computeKpiStatus(value, item)
+    }
   }
 
   function tickToTime(tick: number): string {
@@ -72,7 +95,11 @@ export const useMonitorStore = defineStore('monitor', () => {
 
   function appendLog(tick: number, isComplete: boolean) {
     if (tick === 1) {
-      logs.value.unshift({ time: '00:00:00', level: 'info', message: 'Simulation started. Monitoring all objects.' })
+      logs.value.unshift({
+        time: '00:00:00',
+        level: 'info',
+        message: 'Simulation started. Monitoring all objects.',
+      })
     }
     if (isComplete) {
       logs.value.push({ time: tickToTime(tick), level: 'info', message: 'Simulation completed.' })
@@ -82,7 +109,7 @@ export const useMonitorStore = defineStore('monitor', () => {
   function reset() {
     metricsMap.value = generateMetricsMap(mockMetricTemplates, TOTAL_TICKS)
     alerts.value = JSON.parse(JSON.stringify(mockAlerts))
-    kpiItems.value = JSON.parse(JSON.stringify(mockKpiItems))
+    kpiItems.value = generateKpiItems(mockKpiTemplates, TOTAL_TICKS)
     logs.value = []
   }
 
@@ -92,6 +119,7 @@ export const useMonitorStore = defineStore('monitor', () => {
     kpiItems,
     logs,
     tickMetrics,
+    tickKpis,
     pushAlert,
     appendLog,
     reset,

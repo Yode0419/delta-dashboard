@@ -1,9 +1,15 @@
 <script setup lang="ts" name="App">
+import { onMounted, onUnmounted } from 'vue'
 import AppSidebar from '@/components/AppSidebar.vue'
 import AppHeader from '@/components/AppHeader.vue'
 import HeatmapPanel from '@/components/HeatmapPanel.vue'
 import LogPanel from '@/components/LogPanel.vue'
 import ObjectsPanel from '@/components/ObjectsPanel.vue'
+import { useSimulation } from '@/composables/useSimulation'
+
+const { start, stop } = useSimulation()
+onMounted(() => start())
+onUnmounted(() => stop())
 </script>
 
 <template>

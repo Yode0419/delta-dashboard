@@ -1,37 +1,36 @@
-<script setup lang="ts" name="LogPanel"></script>
+<script setup lang="ts" name="LogPanel">
+import { ref, watch, nextTick } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useMonitorStore } from '@/stores/monitor'
+
+const { logs } = storeToRefs(useMonitorStore())
+const listEl = ref<HTMLDivElement | null>(null)
+
+watch(logs, async () => {
+  await nextTick()
+  if (listEl.value) listEl.value.scrollTop = listEl.value.scrollHeight
+}, { deep: true })
+</script>
 
 <template>
   <el-card class="log-panel" shadow="never">
     <template #header>
       <h2 class="text-h2">Log</h2>
     </template>
-    <div class="log-list text-caption">
-      <div class="log-row">
-        <span class="time">00:02:10</span><span>Lorem ipsum dolor sit amet consectetur.</span>
+    <div ref="listEl" class="log-list text-caption">
+      <div
+        v-for="(entry, i) in logs"
+        :key="i"
+        class="log-row"
+        :class="entry.level === 'error' ? 'error' : entry.level === 'warning' ? 'warning' : ''"
+      >
+        <span class="time">{{ entry.time }}</span>
+        <span>{{ entry.message }}</span>
       </div>
-      <div class="log-row">
-        <span class="time">00:04:22</span
-        ><span
-          >Lorem ipsum dolor sit amet consectetur. Vulputate varius justo velit eget malesuada
-          sem.</span
-        >
+      <div v-if="logs.length === 0" class="log-row">
+        <span class="time">—</span>
+        <span>Waiting for simulation to start…</span>
       </div>
-      <div class="log-row error">
-        <span class="time">00:06:34</span
-        ><span
-          >Error: Lorem ipsum dolor sit amet consectetur. Vulputate varius justo velit eget
-          malesuada sem.</span
-        >
-      </div>
-      <div class="log-row warning">
-        <span class="time">00:08:44</span
-        ><span
-          >Warning: Lorem ipsum dolor sit amet consectetur. Vulputate varius justo velit eget
-          malesuada sem.</span
-        >
-      </div>
-      <div class="log-row"><span class="time">00:10:55</span><span>Log message.........</span></div>
-      <div class="log-row"><span class="time">00:12:34</span><span>Running.........</span></div>
     </div>
   </el-card>
 </template>
@@ -45,7 +44,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  max-height: 160px;
+  height: 160px;
   overflow-y: auto;
   padding: 12px 16px;
 }

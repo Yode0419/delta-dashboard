@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import type { ObjectItem, MetricStatus } from '@/types'
+import type { ObjectItem, Metric, Alert, MetricStatus } from '@/types'
 import { mockObjects } from '@/data/mock'
 
 export const useObjectStore = defineStore('object', () => {
-  const objects = ref<ObjectItem[]>(mockObjects)
+  const objects = ref<ObjectItem[]>(JSON.parse(JSON.stringify(mockObjects)))
   const selectedObjectId = ref<string | null>(mockObjects[0]?.id ?? null)
 
   const selectedObject = computed(() =>
@@ -36,7 +36,7 @@ export const useObjectStore = defineStore('object', () => {
 
   function unmarkVersionChanged(
     id: string,
-    saved: { alertCount: number; status: MetricStatus },
+    saved: { alertCount: number; status: MetricStatus | null },
     lastRunVersion: string,
   ) {
     const obj = objects.value.find((o) => o.id === id)
@@ -45,6 +45,26 @@ export const useObjectStore = defineStore('object', () => {
     obj.versionChanged = false
     obj.alertCount = saved.alertCount
     obj.status = saved.status
+  }
+
+  function updateAllStatusFromMetrics(
+    metricsMap: Record<string, Metric[]>,
+    alerts: Alert[],
+  ) {
+    for (const obj of objects.value) {
+      if (obj.versionChanged) continue
+      const metrics = metricsMap[obj.id]
+      if (!metrics) continue
+
+      const statuses = metrics.map((m) => m.status)
+      obj.status = statuses.includes('critical')
+        ? 'critical'
+        : statuses.includes('warning')
+          ? 'warning'
+          : 'normal'
+
+      obj.alertCount = alerts.filter((a) => a.objectId === obj.id).length
+    }
   }
 
   function reset() {
@@ -61,6 +81,7 @@ export const useObjectStore = defineStore('object', () => {
     selectObject,
     markVersionChanged,
     unmarkVersionChanged,
+    updateAllStatusFromMetrics,
     reset,
   }
 })

@@ -14,6 +14,14 @@ export const useExperimentStore = defineStore('experiment', () => {
     experiment.value.status = 'completed'
   }
 
+  function tickDuration() {
+    experiment.value.duration++
+  }
+
+  function tickProgress(tick: number, totalTicks: number) {
+    experiment.value.progress = Math.round((tick / totalTicks) * 100)
+  }
+
   function reset() {
     experiment.value = { ...mockExperiment, status: 'running', progress: 0, duration: 0 }
   }
@@ -22,6 +30,8 @@ export const useExperimentStore = defineStore('experiment', () => {
     experiment,
     stop,
     complete,
+    tickDuration,
+    tickProgress,
     reset,
   }
 })

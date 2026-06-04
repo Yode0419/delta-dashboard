@@ -83,9 +83,9 @@ export function useExperimentSession() {
     const status = experimentStore.experiment.status
     if (status === 'running') return
 
-    experimentStore.reset()
     objectStore.reset()
     monitorStore.reset()
+    experimentStore.reset()
     // versionStore intentionally not reset — preserves version changes for re-run
   }
 

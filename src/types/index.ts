@@ -12,7 +12,7 @@ export interface Experiment {
 export interface ObjectItem {
   id: string
   name: string
-  status: MetricStatus
+  status: MetricStatus | null
   alertCount: number
   currentVersion: string
   previousVersion: string | null
@@ -32,7 +32,7 @@ export interface Metric {
   name: string
   value: number
   unit: string
-  status: MetricStatus
+  status: MetricStatus | null
   script: number[]
   warningThreshold: number
   criticalThreshold: number

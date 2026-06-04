@@ -1,14 +1,40 @@
 <script setup lang="ts" name="App">
 import { onMounted, onUnmounted } from 'vue'
+import { ElLoading } from 'element-plus'
 import AppSidebar from '@/components/AppSidebar.vue'
 import AppHeader from '@/components/AppHeader.vue'
 import HeatmapPanel from '@/components/HeatmapPanel.vue'
 import LogPanel from '@/components/LogPanel.vue'
 import ObjectsPanel from '@/components/ObjectsPanel.vue'
-import { useSimulation } from '@/composables/useSimulation'
+import { useExperimentStream } from '@/composables/useExperimentStream'
+import { useExperimentStore } from '@/stores/experiment'
+import { useObjectStore } from '@/stores/object'
+import { useVersionStore } from '@/stores/version'
+import {
+  fetchExperiment,
+  fetchObjects,
+  fetchVersionsMap,
+} from '@/services/experimentService'
 
-const { start, stop } = useSimulation()
-onMounted(() => start())
+const experimentStore = useExperimentStore()
+const objectStore = useObjectStore()
+const versionStore = useVersionStore()
+const { start, stop } = useExperimentStream()
+
+onMounted(async () => {
+  const loading = ElLoading.service({ fullscreen: true, background: 'rgba(255,255,255,0.85)' })
+  const [exp, objs, versMap] = await Promise.all([
+    fetchExperiment(),
+    fetchObjects(),
+    fetchVersionsMap(),
+  ])
+  experimentStore.hydrate(exp)
+  objectStore.hydrate(objs)
+  versionStore.hydrate(versMap)
+  loading.close()
+  start()
+})
+
 onUnmounted(() => stop())
 </script>
 
@@ -68,5 +94,4 @@ onUnmounted(() => stop())
 .right-col {
   height: 100%;
 }
-
 </style>

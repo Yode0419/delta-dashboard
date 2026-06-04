@@ -1,10 +1,17 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Experiment } from '@/types'
-import { mockExperiment } from '@/data/mock'
+
+const emptyExperiment: Experiment = { id: '', name: '', status: 'running', progress: 0, duration: 0 }
 
 export const useExperimentStore = defineStore('experiment', () => {
-  const experiment = ref<Experiment>({ ...mockExperiment })
+  const experiment = ref<Experiment>({ ...emptyExperiment })
+  let _base: Experiment = { ...emptyExperiment }
+
+  function hydrate(data: Experiment) {
+    _base = { ...data }
+    experiment.value = { ...data }
+  }
 
   function stop() {
     experiment.value.status = 'stopped'
@@ -23,11 +30,12 @@ export const useExperimentStore = defineStore('experiment', () => {
   }
 
   function reset() {
-    experiment.value = { ...mockExperiment, status: 'running', progress: 0, duration: 0 }
+    experiment.value = { ..._base, status: 'running', progress: 0, duration: 0 }
   }
 
   return {
     experiment,
+    hydrate,
     stop,
     complete,
     tickDuration,

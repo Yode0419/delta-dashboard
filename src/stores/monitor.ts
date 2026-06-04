@@ -81,7 +81,7 @@ export const useMonitorStore = defineStore('monitor', () => {
           metric: metric.name,
           severity,
           triggeredAt: time,
-          triggeredValue: metric.value,
+          triggeredValue: metric.value!,
           description,
         })
         logs.value.push({

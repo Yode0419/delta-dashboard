@@ -45,7 +45,7 @@
 ### Iteration 5 — 收尾
 > 驗收：完整走過整份 Demo 腳本（步驟 1–8）
 
-- [ ] `src/services/experimentService.ts` async service 包裝，components 不直接 import mock
+- [x] `src/services/experimentService.ts` async service 包裝，components 不直接 import mock
 - [x] `LogPanel.vue` 底部 log，隨 tick 追加
 - [x] Re-run 邏輯：重置 simulation，清空 alerts
 - [x] 視覺微調（顏色、間距對齊 Figma 設計稿）
@@ -56,6 +56,7 @@
 ## 開發日誌
 
 ### 2026-06-04
+- 引入 service 層：`experimentService.ts` 以 delay 模擬 REST 初始化與 SSE-like stream；stores 改用 `hydrate()` 接收資料，mutations 走 service fire & forget；App.vue 改為 async init，loading 期間顯示 `ElLoading` 全螢幕轉圈
 - 完成 Iteration 3：Stop/Re-run、applyVersion、revertVersion 流程全部連線
 - 新增 StatusCell.vue，統一 status 顯示；修正 mock data currentVersion 與 lastRun 一致性
 - 加入 `.prettierrc`（no semi、single quote），並對全專案執行 Prettier，統一程式碼風格

@@ -1,11 +1,15 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { ObjectItem, Metric, Alert, MetricStatus } from '@/types'
-import { mockObjects } from '@/data/mock'
 
 export const useObjectStore = defineStore('object', () => {
-  const objects = ref<ObjectItem[]>(JSON.parse(JSON.stringify(mockObjects)))
-  const selectedObjectId = ref<string | null>(mockObjects[0]?.id ?? null)
+  const objects = ref<ObjectItem[]>([])
+  const selectedObjectId = ref<string | null>(null)
+
+  function hydrate(data: ObjectItem[]) {
+    objects.value = JSON.parse(JSON.stringify(data))
+    selectedObjectId.value = data[0]?.id ?? null
+  }
 
   const selectedObject = computed(() =>
     selectedObjectId.value
@@ -80,6 +84,7 @@ export const useObjectStore = defineStore('object', () => {
     selectedObject,
     displayStatus,
     displayAlertCount,
+    hydrate,
     selectObject,
     markVersionChanged,
     unmarkVersionChanged,

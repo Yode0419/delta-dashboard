@@ -1,12 +1,15 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Version, MetricStatus } from '@/types'
-import { mockVersionsMap } from '@/data/mock'
 
 const savedObjectState = new Map<string, { alertCount: number; status: MetricStatus | null }>()
 
 export const useVersionStore = defineStore('version', () => {
-  const versionsMap = ref<Record<string, Version[]>>(mockVersionsMap)
+  const versionsMap = ref<Record<string, Version[]>>({})
+
+  function hydrate(data: Record<string, Version[]>) {
+    versionsMap.value = JSON.parse(JSON.stringify(data))
+  }
 
   function setCurrentVersion(objectId: string, versionId: string) {
     const versions = versionsMap.value[objectId]
@@ -29,12 +32,12 @@ export const useVersionStore = defineStore('version', () => {
   }
 
   function reset() {
-    versionsMap.value = JSON.parse(JSON.stringify(mockVersionsMap))
     savedObjectState.clear()
   }
 
   return {
     versionsMap,
+    hydrate,
     setCurrentVersion,
     saveState,
     getState,

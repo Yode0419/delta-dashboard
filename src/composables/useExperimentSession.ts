@@ -4,6 +4,12 @@ import { useExperimentStore } from '@/stores/experiment'
 import { useObjectStore } from '@/stores/object'
 import { useMonitorStore } from '@/stores/monitor'
 import { useVersionStore } from '@/stores/version'
+import {
+  stopExperiment as apiStop,
+  rerunExperiment as apiRerun,
+  applyVersion as apiApplyVersion,
+  revertVersion as apiRevertVersion,
+} from '@/services/experimentService'
 
 export function useExperimentSession() {
   const experimentStore = useExperimentStore()
@@ -52,6 +58,8 @@ export function useExperimentSession() {
       return
     }
 
+    // Optimistic update — fire & forget
+    apiApplyVersion(obj.id, versionId)
     versionStore.saveState(obj.id, { alertCount: obj.alertCount, status: obj.status })
     objectStore.markVersionChanged(obj.id, target.label)
     versionStore.setCurrentVersion(obj.id, versionId)
@@ -69,6 +77,8 @@ export function useExperimentSession() {
 
     const saved = versionStore.getState(obj.id)
     if (saved) {
+      // Optimistic update — fire & forget
+      apiRevertVersion(obj.id)
       objectStore.unmarkVersionChanged(obj.id, saved, lastRun.label)
       versionStore.clearState(obj.id)
     }
@@ -77,6 +87,8 @@ export function useExperimentSession() {
   }
 
   function stopExperiment() {
+    // Optimistic update — fire & forget
+    apiStop(experimentStore.experiment.id)
     experimentStore.stop()
     ElNotification({
       title: 'Experiment Stopped',
@@ -91,6 +103,8 @@ export function useExperimentSession() {
     const status = experimentStore.experiment.status
     if (status === 'running') return
 
+    // Optimistic update — fire & forget
+    apiRerun(experimentStore.experiment.id)
     objectStore.reset()
     monitorStore.reset()
     experimentStore.reset()

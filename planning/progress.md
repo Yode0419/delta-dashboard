@@ -40,7 +40,7 @@
 - [x] `AppHeader.vue` 計時器改為 elapsed 秒數，進度條 reactive
 - [x] `ObjectList.vue` status / alertCount reactive 更新
 - [x] `MetricCard.vue` 數值隨 tick 更新，超 threshold 顯示 alert 描述
-- [ ] `SparklineChart.vue` 使用 vue-chartjs（Chart.js wrapper），折線 + threshold 虛線
+- [x] `SparklineChart.vue` 使用 vue-chartjs（Chart.js wrapper），折線 + threshold 虛線
 
 ### Iteration 5 — 收尾
 > 驗收：完整走過整份 Demo 腳本（步驟 1–8）
@@ -65,6 +65,8 @@
 - mock.ts 拆分為 5 個 domain 檔案（barrel 模式）；alert 描述 inline 產生，不再依賴獨立函數
 - `ObjectItem.status` 與 `Metric.status` 初始為 `null`，首次 tick 後才計算；修正 re-run 閃爍 bug（mockObjects 深拷貝 + reset 順序）
 - KpiCard 串接 simulation：新增 `mockKpi.ts`，KPI 流程與 Metric 對齊；初始顯示 `-`，tick 後更新值與狀態燈號
+- 完成 SparklineChart.vue：即時折線 + threshold 虛線，顏色隨狀態變色
+- 修正 re-run 版本被重置 bug；`Metric.value` 改為 nullable，初始顯示 `-`；新增 `Metric.label` 分離顯示名稱與 identifier
 
 ### 2026-06-03
 - 調整開發策略為 UI-first 迭代，更新計畫文件與待辦清單結構

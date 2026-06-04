@@ -12,12 +12,12 @@ defineProps<{
 <template>
   <div class="metric-card">
     <div class="card-header">
-      <span class="text-data-label">{{ metric.name }}</span>
+      <span class="text-data-label">{{ metric.label }}</span>
       <StatusCell :status="metric.status" />
     </div>
     <div class="card-value">
-      <span class="text-h2">{{ metric.value }}</span>
-      <span class="text-data-label unit">{{ metric.unit }}</span>
+      <span class="text-h2">{{ metric.value ?? '-' }}</span>
+      <span class="text-data-label unit">{{ metric.value !== null ? metric.unit : '' }}</span>
     </div>
     <SparklineChart
       :history="metric.history"

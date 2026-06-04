@@ -1,5 +1,6 @@
 export interface MetricTemplate {
   name: string
+  label: string
   unit: string
   baseValue: number
   driftPerTick: number
@@ -14,6 +15,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
   'fan-1': [
     {
       name: 'fanSpeed',
+      label: 'Fan Speed',
       unit: 'RPM',
       baseValue: 3100,
       driftPerTick: 0,
@@ -25,6 +27,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
     },
     {
       name: 'temperature',
+      label: 'Temperature',
       unit: '°C',
       baseValue: 40,
       driftPerTick: 0,
@@ -36,6 +39,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
     },
     {
       name: 'vibration',
+      label: 'Vibration',
       unit: 'mm/s',
       baseValue: 0.7,
       driftPerTick: 0,
@@ -49,6 +53,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
   'fan-2': [
     {
       name: 'fanSpeed',
+      label: 'Fan Speed',
       unit: 'RPM',
       baseValue: 3200,
       driftPerTick: 250,
@@ -60,6 +65,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
     },
     {
       name: 'temperature',
+      label: 'Temperature',
       unit: '°C',
       baseValue: 45,
       driftPerTick: 3.5,
@@ -71,6 +77,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
     },
     {
       name: 'vibration',
+      label: 'Vibration',
       unit: 'mm/s',
       baseValue: 0.9,
       driftPerTick: 0,
@@ -84,6 +91,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
   'heat-sink-1': [
     {
       name: 'temperature',
+      label: 'Temperature',
       unit: '°C',
       baseValue: 52,
       driftPerTick: 0,
@@ -95,6 +103,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
     },
     {
       name: 'thermalResistance',
+      label: 'Thermal Resistance',
       unit: '°C/W',
       baseValue: 0.4,
       driftPerTick: 0,
@@ -108,6 +117,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
   'heat-sink-2': [
     {
       name: 'temperature',
+      label: 'Temperature',
       unit: '°C',
       baseValue: 55,
       driftPerTick: 0.2,
@@ -119,6 +129,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
     },
     {
       name: 'thermalResistance',
+      label: 'Thermal Resistance',
       unit: '°C/W',
       baseValue: 0.45,
       driftPerTick: 0.005,
@@ -132,6 +143,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
   'cooler-1': [
     {
       name: 'coolantTemp',
+      label: 'Coolant Temp',
       unit: '°C',
       baseValue: 28,
       driftPerTick: 0,
@@ -143,6 +155,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
     },
     {
       name: 'pressure',
+      label: 'Pressure',
       unit: 'kPa',
       baseValue: 180,
       driftPerTick: 0,
@@ -156,6 +169,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
   'cooler-2': [
     {
       name: 'coolantTemp',
+      label: 'Coolant Temp',
       unit: '°C',
       baseValue: 30,
       driftPerTick: 0.3,
@@ -167,6 +181,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
     },
     {
       name: 'pressure',
+      label: 'Pressure',
       unit: 'kPa',
       baseValue: 185,
       driftPerTick: 0,
@@ -180,6 +195,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
   'thermal-pad-1': [
     {
       name: 'thermalResistance',
+      label: 'Thermal Resistance',
       unit: '°C/W',
       baseValue: 0.5,
       driftPerTick: 0,
@@ -193,6 +209,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
   'thermal-pad-2': [
     {
       name: 'thermalResistance',
+      label: 'Thermal Resistance',
       unit: '°C/W',
       baseValue: 0.8,
       driftPerTick: 0.045,
@@ -206,6 +223,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
   'server-rack-1': [
     {
       name: 'powerDensity',
+      label: 'Power Density',
       unit: 'W/m²',
       baseValue: 120,
       driftPerTick: 9,
@@ -217,6 +235,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
     },
     {
       name: 'inletTemp',
+      label: 'Inlet Temp',
       unit: '°C',
       baseValue: 22,
       driftPerTick: 0.3,
@@ -230,6 +249,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
   'server-rack-2': [
     {
       name: 'powerDensity',
+      label: 'Power Density',
       unit: 'W/m²',
       baseValue: 110,
       driftPerTick: 0,
@@ -241,6 +261,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
     },
     {
       name: 'inletTemp',
+      label: 'Inlet Temp',
       unit: '°C',
       baseValue: 21,
       driftPerTick: 0,
@@ -254,6 +275,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
   'chassis-1': [
     {
       name: 'internalTemp',
+      label: 'Internal Temp',
       unit: '°C',
       baseValue: 35,
       driftPerTick: 0,
@@ -268,6 +290,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
   'chassis-2': [
     {
       name: 'internalTemp',
+      label: 'Internal Temp',
       unit: '°C',
       baseValue: 36,
       driftPerTick: 0.1,
@@ -282,6 +305,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
   'motherboard-1': [
     {
       name: 'cpuTemp',
+      label: 'CPU Temp',
       unit: '°C',
       baseValue: 65,
       driftPerTick: 0,
@@ -293,6 +317,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
     },
     {
       name: 'powerConsumption',
+      label: 'Power Consumption',
       unit: 'W',
       baseValue: 180,
       driftPerTick: 0,
@@ -306,6 +331,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
   'motherboard-2': [
     {
       name: 'cpuTemp',
+      label: 'CPU Temp',
       unit: '°C',
       baseValue: 67,
       driftPerTick: 0.5,
@@ -317,6 +343,7 @@ export const mockMetricTemplates: Record<string, MetricTemplate[]> = {
     },
     {
       name: 'powerConsumption',
+      label: 'Power Consumption',
       unit: 'W',
       baseValue: 185,
       driftPerTick: 0.5,

@@ -30,7 +30,8 @@ export interface Version {
 
 export interface Metric {
   name: string
-  value: number
+  label: string
+  value: number | null
   unit: string
   status: MetricStatus | null
   script: number[]

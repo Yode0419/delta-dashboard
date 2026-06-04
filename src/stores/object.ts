@@ -65,8 +65,11 @@ export const useObjectStore = defineStore('object', () => {
   }
 
   function reset() {
-    objects.value = JSON.parse(JSON.stringify(mockObjects))
-    selectedObjectId.value = mockObjects[0]?.id ?? null
+    for (const obj of objects.value) {
+      obj.status = null
+      obj.alertCount = 0
+      obj.versionChanged = false
+    }
   }
 
   return {

@@ -25,8 +25,9 @@ export function generateMetricsMap(
       const script = generateScript(t, ticks)
       return {
         name: t.name,
+        label: t.label,
         unit: t.unit,
-        value: script[0] ?? t.baseValue,
+        value: null,
         status: null,
         script,
         history: [],

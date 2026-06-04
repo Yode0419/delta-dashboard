@@ -49,11 +49,14 @@
 - [x] `LogPanel.vue` 底部 log，隨 tick 追加
 - [x] Re-run 邏輯：重置 simulation，清空 alerts
 - [x] 視覺微調（顏色、間距對齊 Figma 設計稿）
-- [ ] README：架構說明、demo 腳本、技術選型理由
+- [x] README：架構說明、demo 腳本、技術選型理由
 
 ---
 
 ## 開發日誌
+
+### 2026-06-05
+- 更新 README：改寫為專案導向的說明文件，涵蓋核心功能、技術選型、Demo 腳本與專案結構，移除 Vite 樣板預設內容
 
 ### 2026-06-04
 - 引入 service 層：`experimentService.ts` 以 delay 模擬 REST 初始化與 SSE-like stream；stores 改用 `hydrate()` 接收資料，mutations 走 service fire & forget；App.vue 改為 async init，loading 期間顯示 `ElLoading` 全螢幕轉圈

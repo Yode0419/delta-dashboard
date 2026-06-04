@@ -1,48 +1,56 @@
-# delta-dashboard
+# Delta Dashboard
 
-This template should help get you started developing with Vue 3 in Vite.
+An interactive Vue 3 prototype built for a Delta Electronics UIUX Engineer interview. Based on a completed Figma design, the goal is to demonstrate design-to-frontend capability with a working simulation engine and full object version-swap flow.
 
-## Recommended IDE Setup
+**Figma Design:** https://www.figma.com/design/yKyKVcdDzVGrTWKFqAl1QL/Delta-Assignment---yode?node-id=141-1116
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Core Features
 
-## Recommended Browser Setup
+- **Simulation engine** — a time-series playbook runs on a 2-second tick interval, updating metrics in real time over ~16 seconds
+- **Automatic alert triggering** — metrics crossing warning/critical thresholds fire alerts at predetermined ticks
+- **Object version-swap flow** — Stop → Change Version → Apply → Revert, with visual indicators throughout
+- **Service layer** — all data access goes through `experimentService.ts` (async with simulated delay), keeping UI components decoupled from mock data
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## Tech Stack
 
-## Type Support for `.vue` Imports in TS
+| | |
+|---|---|
+| Framework | Vue 3 + Composition API |
+| Language | TypeScript |
+| Build | Vite |
+| UI Library | Element Plus |
+| State | Pinia |
+| Charts | Hand-crafted SVG (no library) |
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Quick Start
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
+```bash
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
+```bash
+npm run build   # type-check + build
+npm run lint    # oxlint then eslint, both with --fix
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+## Demo Script
 
-```sh
-npm run lint
+1. Open the app — experiment starts in **Running** state with a live timer and progress bar
+2. Watch metrics update every ~2 seconds; Fan#2 and ServerRack#1 escalate to Warning → Critical automatically
+3. Click any object to see its metrics, sparkline charts, and alert descriptions in the detail panel
+4. Click **Stop** → then **Change Version** on an object to open the version modal
+5. Select a version and **Apply** — the object list shows a dot indicator, detail panel shows empty state
+6. Click **Revert** to roll back, or **Re-run** to restart the simulation from the beginning
+
+## Project Structure
+
+```
+src/
+├── types/index.ts                 # TypeScript interfaces
+├── data/mock.ts                   # time-series playbook data
+├── services/experimentService.ts  # async API simulation
+├── stores/experiment.ts           # Pinia store
+├── composables/useSimulation.ts   # tick-driven simulation engine
+└── components/                    # UI components
 ```

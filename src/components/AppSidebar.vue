@@ -1,4 +1,4 @@
-<script setup lang="ts" name="AppSidebar"></script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="sidebar" />

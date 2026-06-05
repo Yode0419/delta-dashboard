@@ -1,4 +1,4 @@
-<script setup lang="ts" name="App">
+<script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue'
 import { ElLoading } from 'element-plus'
 import AppSidebar from '@/components/AppSidebar.vue'

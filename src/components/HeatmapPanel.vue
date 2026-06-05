@@ -1,4 +1,4 @@
-<script setup lang="ts" name="HeatmapPanel">
+<script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useMonitorStore } from '@/stores/monitor'
 import KpiCard from '@/components/KpiCard.vue'

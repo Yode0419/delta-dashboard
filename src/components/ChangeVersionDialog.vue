@@ -1,4 +1,4 @@
-<script setup lang="ts" name="ChangeVersionDialog">
+<script setup lang="ts">
 import { ref, watch, computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useObjectStore } from '@/stores/object'

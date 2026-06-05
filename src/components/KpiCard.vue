@@ -1,4 +1,4 @@
-<script setup lang="ts" name="KpiCard">
+<script setup lang="ts">
 import type { KpiItem } from '@/types'
 
 defineProps<{ item: KpiItem }>()

@@ -1,4 +1,4 @@
-<script setup lang="ts" name="StatusCell">
+<script setup lang="ts">
 import type { MetricStatus } from '@/types'
 
 defineProps<{ status: MetricStatus | null }>()

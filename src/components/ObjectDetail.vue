@@ -1,4 +1,4 @@
-<script setup lang="ts" name="ObjectDetail">
+<script setup lang="ts">
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useExperimentStore } from '@/stores/experiment'

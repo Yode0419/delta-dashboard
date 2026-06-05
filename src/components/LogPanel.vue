@@ -1,4 +1,4 @@
-<script setup lang="ts" name="LogPanel">
+<script setup lang="ts">
 import { ref, watch, nextTick } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMonitorStore } from '@/stores/monitor'

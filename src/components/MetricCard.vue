@@ -1,4 +1,4 @@
-<script setup lang="ts" name="MetricCard">
+<script setup lang="ts">
 import type { Metric } from '@/types'
 import StatusCell from '@/components/StatusCell.vue'
 import SparklineChart from '@/components/SparklineChart.vue'

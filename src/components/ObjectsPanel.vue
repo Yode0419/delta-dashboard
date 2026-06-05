@@ -1,4 +1,4 @@
-<script setup lang="ts" name="ObjectsPanel">
+<script setup lang="ts">
 import ObjectList from '@/components/ObjectList.vue'
 import ObjectDetail from '@/components/ObjectDetail.vue'
 </script>

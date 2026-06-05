@@ -1,4 +1,4 @@
-<script setup lang="ts" name="ObjectList">
+<script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useObjectStore } from '@/stores/object'
 import StatusCell from '@/components/StatusCell.vue'

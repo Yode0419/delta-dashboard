@@ -55,7 +55,7 @@ const durationDisplay = computed(() => formatDuration(experiment.value.duration)
       </div>
     </div>
     <el-progress
-      v-if="experiment.status !== 'stopped'"
+      v-if="experiment.status === 'running'"
       class="flat-progress"
       :percentage="experiment.progress"
       text-inside

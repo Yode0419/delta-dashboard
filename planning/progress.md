@@ -58,6 +58,7 @@
 ### 2026-06-05
 - `AppHeader` 進度條 completed 時隱藏；`SparklineChart` 改為滑動窗口（近 10 tick）、mm:ss X 軸、自訂 crosshair hover plugin 取代預設 tooltip
 - 更新 CLAUDE.md 與 README：補齊架構現況（4 stores、2 composables）、修正技術選型與模擬時序；README 加入情境說明與資料處理流程
+- 新增 GitHub Actions 自動部署（`.github/workflows/deploy.yml`）；`vite.config.ts` 加入 `base: '/delta-dashboard/'`，專案可透過 GitHub Pages 對外發布
 
 ### 2026-06-04
 - 引入 service 層：`experimentService.ts` 以 delay 模擬 REST 初始化與 SSE-like stream；stores 改用 `hydrate()` 接收資料，mutations 走 service fire & forget；App.vue 改為 async init，loading 期間顯示 `ElLoading` 全螢幕轉圈

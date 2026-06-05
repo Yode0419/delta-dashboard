@@ -22,7 +22,8 @@ const {
 const dialogVisible = ref(false)
 
 function alertDescFor(metricName: string): string | undefined {
-  return selectedAlerts.value.find((a) => a.metric === metricName)?.description
+  const matches = selectedAlerts.value.filter((a) => a.metric === metricName)
+  return matches.at(-1)?.description
 }
 </script>
 

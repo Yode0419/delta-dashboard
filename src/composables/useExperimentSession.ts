@@ -60,7 +60,11 @@ export function useExperimentSession() {
 
     // Optimistic update — fire & forget
     apiApplyVersion(obj.id, versionId)
-    versionStore.saveState(obj.id, { alertCount: obj.alertCount, status: obj.status })
+    // Save the last-run result only on the first swap away from it — once
+    // versionChanged is set, the object holds the zeroed placeholder state
+    if (!obj.versionChanged) {
+      versionStore.saveState(obj.id, { alertCount: obj.alertCount, status: obj.status })
+    }
     objectStore.markVersionChanged(obj.id, target.label)
     versionStore.setCurrentVersion(obj.id, versionId)
   }
@@ -108,7 +112,8 @@ export function useExperimentSession() {
     objectStore.reset()
     monitorStore.reset()
     experimentStore.reset()
-    // versionStore intentionally not reset — preserves version changes for re-run
+    // Version selections are kept; the current versions become the new "last run"
+    versionStore.promoteCurrentToLastRun()
   }
 
   return {

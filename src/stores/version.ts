@@ -19,6 +19,17 @@ export const useVersionStore = defineStore('version', () => {
     })
   }
 
+  // A new run executes each object's current version, so it becomes the new
+  // "last run"; saved pre-swap state belongs to the previous run and is dropped.
+  function promoteCurrentToLastRun() {
+    for (const versions of Object.values(versionsMap.value)) {
+      versions.forEach((v) => {
+        v.isLastRun = v.isCurrent
+      })
+    }
+    savedObjectState.clear()
+  }
+
   function saveState(objectId: string, state: { alertCount: number; status: MetricStatus | null }) {
     savedObjectState.set(objectId, state)
   }
@@ -39,6 +50,7 @@ export const useVersionStore = defineStore('version', () => {
     versionsMap,
     hydrate,
     setCurrentVersion,
+    promoteCurrentToLastRun,
     saveState,
     getState,
     clearState,

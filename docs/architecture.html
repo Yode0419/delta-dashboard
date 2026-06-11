@@ -9,7 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" integrity="sha384-en/ztfPSRkGfME4KIm05joYXynqzUgbsG5nMrj/xEFAHXkeZfO3yMK8QQ+mP7p1/" crossorigin="anonymous"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'JetBrains Mono', monospace; background: #020617; min-height: 100vh; padding: 2rem; color: white; }
+    body { font-family: 'JetBrains Mono', 'Noto Sans TC', 'Microsoft JhengHei', monospace; background: #020617; min-height: 100vh; padding: 2rem; color: white; }
     .container { max-width: 1200px; margin: 0 auto; }
     .header { margin-bottom: 2rem; }
     .header-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
@@ -32,6 +32,20 @@
     .card ul { list-style: none; color: #94a3b8; font-size: 0.75rem; }
     .card li { margin-bottom: 0.375rem; }
     .footer { text-align: center; margin-top: 1.5rem; color: #475569; font-size: 0.75rem; }
+    .flow { background: rgba(15, 23, 42, 0.5); border-radius: 0.75rem; border: 1px solid #1e293b; padding: 1.25rem 1.5rem; margin-top: 2rem; }
+    .flow .card-header { margin-bottom: 1rem; }
+    .flow h3 { font-size: 0.9375rem; font-weight: 600; }
+    .flow ol { list-style: none; display: flex; flex-direction: column; gap: 0.875rem; }
+    .flow li { display: flex; gap: 0.75rem; align-items: flex-start; }
+    .flow .num { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; border: 1px solid; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; margin-top: 0.1rem; }
+    .flow .num.rose    { border-color: #fb7185; color: #fb7185; }
+    .flow .num.violet  { border-color: #a78bfa; color: #a78bfa; }
+    .flow .num.orange  { border-color: #fb923c; color: #fb923c; }
+    .flow .num.emerald { border-color: #34d399; color: #34d399; }
+    .flow .num.cyan    { border-color: #22d3ee; color: #22d3ee; }
+    .flow strong { font-size: 0.8125rem; color: white; display: block; margin-bottom: 0.2rem; }
+    .flow p { color: #94a3b8; font-size: 0.75rem; line-height: 1.7; }
+    .flow code { color: #cbd5e1; font-size: 0.7rem; background: rgba(30, 41, 59, 0.8); padding: 0.05rem 0.3rem; border-radius: 0.25rem; }
     .toolbar { display: flex; gap: 0.5rem; margin-left: auto; flex-shrink: 0; align-items: center; }
     .toolbar-toggle { background: transparent; border: none; color: #475569; cursor: pointer; font-size: 1.25rem; line-height: 1; padding: 0.25rem 0.5rem; border-radius: 0.375rem; transition: color 0.2s, background 0.2s; }
     .toolbar-toggle:hover { color: #94a3b8; background: rgba(30, 41, 59, 0.5); }
@@ -60,17 +74,21 @@
         </div>
       </div>
       <p class="subtitle">Vue 3 &#xB7; TypeScript &#xB7; Vite &#xB7; Pinia &#xB7; Element Plus &#x2014; layered frontend architecture for Delta Electronics prototype</p>
+      <p class="subtitle">純前端原型：以 Service 層 + 計時器模擬 REST / SSE 後端，數據由預生成腳本逐格播放</p>
     </div>
 
     <!-- Main Diagram -->
     <div class="diagram-container">
-      <svg viewBox="0 0 1000 855" font-family="'JetBrains Mono', monospace">
+      <svg viewBox="0 0 1000 855" font-family="'JetBrains Mono', 'Noto Sans TC', 'Microsoft JhengHei', monospace">
         <defs>
           <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
             <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
           </marker>
           <marker id="arrowhead-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
             <polygon points="0 0, 10 3.5, 0 7" fill="#fb923c"/>
+          </marker>
+          <marker id="arrowhead-violet" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#a78bfa"/>
           </marker>
           <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
             <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
@@ -100,27 +118,27 @@
         <!-- Band 1 — UI Components -->
         <rect x="18" y="45" width="758" height="110" rx="6"
               fill="rgba(8,51,68,0.15)" stroke="#22d3ee" stroke-width="1"/>
-        <text x="26" y="42" fill="#22d3ee" font-size="8" font-weight="600">UI COMPONENTS</text>
+        <text x="26" y="42" fill="#22d3ee" font-size="8" font-weight="600">UI COMPONENTS &#xB7; 元件層</text>
 
         <!-- Band 2 — Composables -->
         <rect x="18" y="190" width="758" height="110" rx="6"
               fill="rgba(251,146,60,0.08)" stroke="#fb923c" stroke-width="1"/>
-        <text x="26" y="187" fill="#fb923c" font-size="8" font-weight="600">COMPOSABLES</text>
+        <text x="26" y="187" fill="#fb923c" font-size="8" font-weight="600">COMPOSABLES &#xB7; 組合式函式（業務邏輯）</text>
 
         <!-- Band 3 — Pinia Stores -->
         <rect x="18" y="335" width="758" height="110" rx="6"
               fill="rgba(6,78,59,0.1)" stroke="#34d399" stroke-width="1"/>
-        <text x="26" y="332" fill="#34d399" font-size="8" font-weight="600">PINIA STORES</text>
+        <text x="26" y="332" fill="#34d399" font-size="8" font-weight="600">PINIA STORES &#xB7; 狀態層</text>
 
         <!-- Band 4 — Service Layer -->
         <rect x="18" y="480" width="758" height="110" rx="6"
               fill="rgba(136,19,55,0.08)" stroke="#fb7185" stroke-width="1"/>
-        <text x="26" y="477" fill="#fb7185" font-size="8" font-weight="600">SERVICE LAYER</text>
+        <text x="26" y="477" fill="#fb7185" font-size="8" font-weight="600">SERVICE LAYER &#xB7; 服務層（模擬後端 API）</text>
 
         <!-- Band 5 — Mock Data -->
         <rect x="18" y="625" width="758" height="110" rx="6"
               fill="rgba(76,29,149,0.08)" stroke="#a78bfa" stroke-width="1"/>
-        <text x="26" y="622" fill="#a78bfa" font-size="8" font-weight="600">MOCK DATA</text>
+        <text x="26" y="622" fill="#a78bfa" font-size="8" font-weight="600">MOCK DATA &#xB7; 模擬資料層</text>
 
         <!-- ═══ Types column (right side, spans all bands) ═══ -->
         <rect x="790" y="45" width="172" height="690" rx="6" fill="#0f172a"/>
@@ -146,8 +164,8 @@
         <line x1="800" y1="230" x2="952" y2="230" stroke="#1e293b" stroke-width="1"/>
 
         <text x="800" y="246" fill="#34d399" font-size="8">ObjectItem</text>
-        <text x="800" y="259" fill="#475569" font-size="7">id &#xB7; name &#xB7; status</text>
-        <text x="800" y="271" fill="#475569" font-size="7">alertCount &#xB7; version</text>
+        <text x="800" y="259" fill="#475569" font-size="7">id &#xB7; name &#xB7; status &#xB7; alertCount</text>
+        <text x="800" y="271" fill="#475569" font-size="7">currentVersion &#xB7; versionChanged</text>
         <line x1="800" y1="278" x2="952" y2="278" stroke="#1e293b" stroke-width="1"/>
 
         <text x="800" y="294" fill="#34d399" font-size="8">Metric</text>
@@ -238,7 +256,7 @@
         <text x="105" y="367" fill="white" font-size="9" font-weight="600" text-anchor="middle">experimentStore</text>
         <text x="105" y="382" fill="#94a3b8" font-size="8" text-anchor="middle">status &#xB7; progress</text>
         <text x="105" y="396" fill="#94a3b8" font-size="8" text-anchor="middle">duration</text>
-        <text x="105" y="413" fill="#34d399" font-size="7" text-anchor="middle">hydrate &#xB7; stop &#xB7; reset</text>
+        <text x="105" y="413" fill="#34d399" font-size="7" text-anchor="middle">tickProgress &#xB7; complete &#xB7; reset</text>
 
         <!-- objectStore -->
         <rect x="198" y="346" width="143" height="88" rx="6" fill="#0f172a"/>
@@ -247,7 +265,7 @@
         <text x="269" y="367" fill="white" font-size="9" font-weight="600" text-anchor="middle">objectStore</text>
         <text x="269" y="382" fill="#94a3b8" font-size="8" text-anchor="middle">objects list</text>
         <text x="269" y="396" fill="#94a3b8" font-size="8" text-anchor="middle">selectedObjectId</text>
-        <text x="269" y="413" fill="#34d399" font-size="7" text-anchor="middle">markVersionChanged</text>
+        <text x="269" y="413" fill="#34d399" font-size="7" text-anchor="middle">markVersionChanged &#xB7; updateAllStatus</text>
 
         <!-- monitorStore -->
         <rect x="356" y="346" width="158" height="88" rx="6" fill="#0f172a"/>
@@ -255,8 +273,8 @@
               fill="rgba(6,78,59,0.4)" stroke="#34d399" stroke-width="1.5"/>
         <text x="435" y="367" fill="white" font-size="9" font-weight="600" text-anchor="middle">monitorStore</text>
         <text x="435" y="382" fill="#94a3b8" font-size="8" text-anchor="middle">metricsMap &#xB7; alerts</text>
-        <text x="435" y="396" fill="#94a3b8" font-size="8" text-anchor="middle">kpis &#xB7; logs</text>
-        <text x="435" y="413" fill="#34d399" font-size="7" text-anchor="middle">tickMetrics &#xB7; pushAlert</text>
+        <text x="435" y="396" fill="#94a3b8" font-size="8" text-anchor="middle">kpiItems &#xB7; logs</text>
+        <text x="435" y="413" fill="#34d399" font-size="7" text-anchor="middle">tickMetrics &#xB7; tickKpis &#xB7; pushAlert</text>
 
         <!-- versionStore -->
         <rect x="529" y="346" width="148" height="88" rx="6" fill="#0f172a"/>
@@ -264,8 +282,8 @@
               fill="rgba(6,78,59,0.4)" stroke="#34d399" stroke-width="1.5"/>
         <text x="603" y="367" fill="white" font-size="9" font-weight="600" text-anchor="middle">versionStore</text>
         <text x="603" y="382" fill="#94a3b8" font-size="8" text-anchor="middle">versionsMap</text>
-        <text x="603" y="396" fill="#94a3b8" font-size="8" text-anchor="middle">saved states</text>
-        <text x="603" y="413" fill="#34d399" font-size="7" text-anchor="middle">setCurrentVersion</text>
+        <text x="603" y="396" fill="#94a3b8" font-size="8" text-anchor="middle">saved pre-swap state</text>
+        <text x="603" y="413" fill="#34d399" font-size="7" text-anchor="middle">promoteCurrentToLastRun</text>
 
         <!-- ═══════════════════════════════════════
              BAND 4 — SERVICE LAYER BOX  (y=491, h=88)
@@ -280,10 +298,10 @@
           fetchExperiment &#xB7; fetchObjects &#xB7; fetchVersionsMap &#xB7; stopExperiment &#xB7; rerunExperiment &#xB7; applyVersion &#xB7; revertVersion
         </text>
         <text x="393" y="545" fill="#94a3b8" font-size="8" text-anchor="middle">
-          each REST stub wrapped in await delay(300&#x2013;1000ms) &#x2014; intentional UI/data separation
+          fetch* &#x2192; await delay(1000ms) &#xB7; mutations &#x2192; await delay(300ms), fire &amp; forget &#x2014; intentional UI/data separation
         </text>
         <text x="393" y="563" fill="#fb7185" font-size="8" text-anchor="middle">
-          subscribeToExperimentStream &#x2192; setInterval(2000ms/tick &#xB7; 8 total ticks &#xB7; ~16s run) &#x2192; returns unsubscribe()
+          subscribeToExperimentStream &#x2192; setInterval(500ms/tick &#xB7; 20 total ticks &#xB7; ~10s run) &#x2192; returns unsubscribe()
         </text>
 
         <!-- ═══════════════════════════════════════
@@ -291,44 +309,55 @@
              ═══════════════════════════════════════ -->
 
         <!-- mockExperiment -->
-        <rect x="28" y="636" width="115" height="83" rx="6" fill="#0f172a"/>
-        <rect x="28" y="636" width="115" height="83" rx="6"
+        <rect x="28" y="636" width="113" height="83" rx="6" fill="#0f172a"/>
+        <rect x="28" y="636" width="113" height="83" rx="6"
               fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
-        <text x="85" y="657" fill="white" font-size="9" font-weight="600" text-anchor="middle">mockExperiment</text>
-        <text x="85" y="672" fill="#94a3b8" font-size="8" text-anchor="middle">experiment seed</text>
-        <text x="85" y="686" fill="#a78bfa" font-size="7" text-anchor="middle">mockExperiment.ts</text>
+        <text x="84" y="657" fill="white" font-size="9" font-weight="600" text-anchor="middle">mockExperiment</text>
+        <text x="84" y="672" fill="#94a3b8" font-size="8" text-anchor="middle">experiment seed</text>
+        <text x="84" y="686" fill="#a78bfa" font-size="7" text-anchor="middle">id &#xB7; name &#xB7; status</text>
 
         <!-- mockObjects -->
-        <rect x="155" y="636" width="122" height="83" rx="6" fill="#0f172a"/>
-        <rect x="155" y="636" width="122" height="83" rx="6"
+        <rect x="151" y="636" width="113" height="83" rx="6" fill="#0f172a"/>
+        <rect x="151" y="636" width="113" height="83" rx="6"
               fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
-        <text x="216" y="657" fill="white" font-size="9" font-weight="600" text-anchor="middle">mockObjects</text>
-        <text x="216" y="672" fill="#94a3b8" font-size="8" text-anchor="middle">Fan#1 &#xB7; Fan#2</text>
-        <text x="216" y="686" fill="#94a3b8" font-size="7" text-anchor="middle">ServerRack &#xB7; ThermalPad</text>
+        <text x="207" y="657" fill="white" font-size="9" font-weight="600" text-anchor="middle">mockObjects</text>
+        <text x="207" y="672" fill="#94a3b8" font-size="8" text-anchor="middle">14 thermal objects</text>
+        <text x="207" y="686" fill="#94a3b8" font-size="7" text-anchor="middle">Fan &#xB7; HeatSink &#xB7; Cooler</text>
+        <text x="207" y="698" fill="#94a3b8" font-size="7" text-anchor="middle">Rack &#xB7; Chassis &#xB7; MB &#xB7; Pad</text>
 
-        <!-- mockMonitor + mockKPI -->
-        <rect x="289" y="636" width="148" height="83" rx="6" fill="#0f172a"/>
-        <rect x="289" y="636" width="148" height="83" rx="6"
+        <!-- mockMonitor -->
+        <rect x="274" y="636" width="113" height="83" rx="6" fill="#0f172a"/>
+        <rect x="274" y="636" width="113" height="83" rx="6"
               fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
-        <text x="363" y="657" fill="white" font-size="9" font-weight="600" text-anchor="middle">mockMonitor &#xB7; mockKPI</text>
-        <text x="363" y="672" fill="#94a3b8" font-size="8" text-anchor="middle">metricsMap &#xB7; versionsMap</text>
-        <text x="363" y="686" fill="#a78bfa" font-size="7" text-anchor="middle">mockMetricTemplates</text>
+        <text x="330" y="657" fill="white" font-size="9" font-weight="600" text-anchor="middle">mockMonitor</text>
+        <text x="330" y="672" fill="#94a3b8" font-size="8" text-anchor="middle">mockVersionsMap</text>
+        <text x="330" y="686" fill="#a78bfa" font-size="7" text-anchor="middle">mockAlerts seed</text>
+
+        <!-- mockMetricTemplates + mockKpi -->
+        <rect x="397" y="636" width="113" height="83" rx="6" fill="#0f172a"/>
+        <rect x="397" y="636" width="113" height="83" rx="6"
+              fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="453" y="655" fill="white" font-size="8" font-weight="600" text-anchor="middle">mockMetricTemplates</text>
+        <text x="453" y="670" fill="#94a3b8" font-size="8" text-anchor="middle">mockKpiTemplates</text>
+        <text x="453" y="686" fill="#a78bfa" font-size="7" text-anchor="middle">baseValue &#xB7; driftPerTick</text>
+        <text x="453" y="698" fill="#a78bfa" font-size="7" text-anchor="middle">noiseRange &#xB7; thresholds</text>
 
         <!-- simulationConfig -->
-        <rect x="449" y="636" width="138" height="83" rx="6" fill="#0f172a"/>
-        <rect x="449" y="636" width="138" height="83" rx="6"
+        <rect x="520" y="636" width="113" height="83" rx="6" fill="#0f172a"/>
+        <rect x="520" y="636" width="113" height="83" rx="6"
               fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
-        <text x="518" y="657" fill="white" font-size="9" font-weight="600" text-anchor="middle">simulationConfig</text>
-        <text x="518" y="672" fill="#94a3b8" font-size="8" text-anchor="middle">TICK_INTERVAL_MS</text>
-        <text x="518" y="686" fill="#a78bfa" font-size="7" text-anchor="middle">= 2000 &#xB7; TOTAL_TICKS = 8</text>
+        <text x="576" y="657" fill="white" font-size="9" font-weight="600" text-anchor="middle">simulationConfig</text>
+        <text x="576" y="672" fill="#94a3b8" font-size="8" text-anchor="middle">TOTAL_TICKS = 20</text>
+        <text x="576" y="686" fill="#a78bfa" font-size="7" text-anchor="middle">TICK_INTERVAL_MS = 500</text>
 
         <!-- scriptGenerator -->
-        <rect x="599" y="636" width="130" height="83" rx="6" fill="#0f172a"/>
-        <rect x="599" y="636" width="130" height="83" rx="6"
+        <rect x="643" y="636" width="113" height="83" rx="6" fill="#0f172a"/>
+        <rect x="643" y="636" width="113" height="83" rx="6"
               fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
-        <text x="664" y="657" fill="white" font-size="9" font-weight="600" text-anchor="middle">scriptGenerator</text>
-        <text x="664" y="672" fill="#94a3b8" font-size="8" text-anchor="middle">generateMetricScript()</text>
-        <text x="664" y="686" fill="#a78bfa" font-size="7" text-anchor="middle">time-series playbook</text>
+        <text x="699" y="655" fill="white" font-size="8" font-weight="600" text-anchor="middle">scriptGenerator</text>
+        <text x="699" y="670" fill="#94a3b8" font-size="8" text-anchor="middle">generateMetricsMap</text>
+        <text x="699" y="684" fill="#94a3b8" font-size="8" text-anchor="middle">generateKpiItems</text>
+        <text x="699" y="698" fill="#a78bfa" font-size="7" text-anchor="middle">base + drift + noise</text>
 
         <!-- ═══════════════════════════════════════
              GAP ARROWS (in the 35px gaps between bands)
@@ -336,19 +365,19 @@
 
         <!-- Gap 1: Components (ends y=155) → Composables (starts y=190) -->
         <line x1="380" y1="158" x2="380" y2="185" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <text x="386" y="175" fill="#64748b" font-size="8">use*() composables</text>
+        <text x="386" y="175" fill="#64748b" font-size="8">use*() composables &#x2014; 元件透過組合式函式取用狀態與動作</text>
 
         <!-- Gap 2: Composables (ends y=300) → Stores (starts y=335) -->
         <line x1="380" y1="303" x2="380" y2="330" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <text x="386" y="320" fill="#64748b" font-size="8">Pinia reactive state</text>
+        <text x="386" y="320" fill="#64748b" font-size="8">Pinia reactive state &#x2014; 響應式狀態驅動畫面更新</text>
 
         <!-- Gap 3: Stores (ends y=445) → Service (starts y=480) -->
         <line x1="380" y1="448" x2="380" y2="475" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <text x="386" y="465" fill="#64748b" font-size="8">async API calls</text>
+        <text x="386" y="465" fill="#64748b" font-size="8">async API calls &#x2014; 以 await delay() 模擬網路延遲，取代真實後端</text>
 
         <!-- Gap 4: Service (ends y=590) → Data (starts y=625) -->
         <line x1="380" y1="593" x2="380" y2="620" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <text x="386" y="610" fill="#64748b" font-size="8">static imports</text>
+        <text x="386" y="610" fill="#64748b" font-size="8">static imports &#x2014; Service 層靜態匯入 mock 資料作為資料來源</text>
 
         <!-- ═══════════════════════════════════════
              SSE STREAM FEEDBACK ARROW
@@ -358,7 +387,18 @@
               fill="none" stroke="#fb923c" stroke-width="1.5"
               stroke-dasharray="5,3" marker-end="url(#arrowhead-orange)"/>
         <text transform="rotate(-90 8 392)" x="8" y="392"
-              fill="#fb923c" font-size="7" text-anchor="middle">SSE stream &#xB7; onTick callback</text>
+              fill="#fb923c" font-size="7" text-anchor="middle">SSE stream &#xB7; onTick callback &#xB7; 模擬即時推播</text>
+
+        <!-- ═══════════════════════════════════════
+             SCRIPT GENERATION ARROW
+             Data band → Stores band (monitorStore generates scripts
+             at init/reset, bypassing the service layer)
+             ═══════════════════════════════════════ -->
+        <path d="M 768 625 L 768 448"
+              fill="none" stroke="#a78bfa" stroke-width="1.5"
+              stroke-dasharray="5,3" marker-end="url(#arrowhead-violet)"/>
+        <text transform="rotate(-90 762 536)" x="762" y="536"
+              fill="#a78bfa" font-size="7" text-anchor="middle">腳本於 store init / reset 時生成</text>
 
         <!-- ═══════════════════════════════════════
              LEGEND  (below Vue boundary at y=745)
@@ -388,7 +428,55 @@
 
         <line x1="625" y1="795" x2="636" y2="795" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         <text x="645" y="799" fill="#94a3b8" font-size="8">Data / dependency flow</text>
+
+        <line x1="20" y1="815" x2="34" y2="815" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4,2"/>
+        <text x="40" y="819" fill="#94a3b8" font-size="8">Script generation at store init / reset (monitorStore &#x2190; scriptGenerator, bypasses service)</text>
       </svg>
+    </div>
+
+    <!-- Data Flow Walkthrough (zh-TW) -->
+    <div class="flow">
+      <div class="card-header">
+        <div class="card-dot violet"></div>
+        <h3>資料處理流程 — 無後端的模擬方式</h3>
+      </div>
+      <ol>
+        <li>
+          <span class="num rose">1</span>
+          <div>
+            <strong>初始載入（模擬 REST）</strong>
+            <p>App 啟動時，<code>experimentService</code> 以 <code>await delay(1000ms)</code> 模擬網路延遲，回傳 mock 資料給各 store。元件全程不直接碰 mock，未來接上真實後端時只需替換 service 層實作。</p>
+          </div>
+        </li>
+        <li>
+          <span class="num violet">2</span>
+          <div>
+            <strong>腳本預先生成（取代後端運算）</strong>
+            <p>monitorStore 初始化時，<code>scriptGenerator</code> 依模擬設定，為每個物件預生成 20 格數據（基礎值 + 漂移量 + 隨機雜訊）。因加入隨機性，每次執行的數值與告警時點都會有差異。</p>
+          </div>
+        </li>
+        <li>
+          <span class="num orange">3</span>
+          <div>
+            <strong>模擬即時串流（模擬 SSE）</strong>
+            <p><code>setInterval(500ms)</code> 模擬伺服器推播，共 20 個 tick （約 10 秒）。每個 tick 只推 tick 編號，數值由前端依腳本播放，不索取也不傳輸真實數據。</p>
+          </div>
+        </li>
+        <li>
+          <span class="num emerald">4</span>
+          <div>
+            <strong>每個 tick 的資料處理</strong>
+            <p>單例 <code>useExperimentStream</code> 收到事件後，依序更新：指標 → KPI → 告警（去重）→ 日誌 → 物件狀態 → 進度。最後一個 tick 做 <code>onComplete</code>，實驗自動完成。</p>
+          </div>
+        </li>
+        <li>
+          <span class="num cyan">5</span>
+          <div>
+            <strong>操作與版本切換（樂觀更新）</strong>
+            <p>所有操作（<code>stop</code> / <code>rerun</code> / 版本切換）都先更新顯示狀態，即時響應 UI，再以 fire &amp; forget 呼應模擬 API。版本切換前會保存狀態以供 revert 還原；<code>rerun</code> 則重生腳本並重置版本。</p>
+          </div>
+        </li>
+      </ol>
     </div>
 
     <!-- Info Cards -->
@@ -418,6 +506,7 @@
           <li>&#x2022; 4 Pinia stores: experiment / object / monitor / version</li>
           <li>&#x2022; Optimistic updates &#x2014; all mutations fire &amp; forget</li>
           <li>&#x2022; Status watcher auto-starts/stops stream on re-run</li>
+          <li>&#x2022; Version swap saves pre-swap state; rerun promotes current &#x2192; last run</li>
         </ul>
       </div>
 
@@ -427,10 +516,11 @@
           <h3>Simulation Engine</h3>
         </div>
         <ul>
-          <li>&#x2022; subscribeToExperimentStream &#x2014; setInterval(2000ms)</li>
-          <li>&#x2022; 8 ticks total &#x2248; 16s experiment run time</li>
+          <li>&#x2022; subscribeToExperimentStream &#x2014; setInterval(500ms)</li>
+          <li>&#x2022; 20 ticks total &#x2248; 10s experiment run time</li>
           <li>&#x2022; Each tick: metrics &#x2192; KPIs &#x2192; alerts &#x2192; logs &#x2192; objects &#x2192; progress</li>
-          <li>&#x2022; Alert thresholds: Fan#2 (tick 4&#x2013;5), ServerRack (tick 3&#x2013;5)</li>
+          <li>&#x2022; Scripts generated per run: baseValue + drift + noise &#x2014; alert timing is probabilistic</li>
+          <li>&#x2022; Alerts deduped per object + metric + severity</li>
           <li>&#x2022; REST stubs: await delay(300&#x2013;1000ms) per call</li>
         </ul>
       </div>

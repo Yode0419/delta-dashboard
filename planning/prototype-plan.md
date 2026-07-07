@@ -1,12 +1,10 @@
-# Delta Dashboard — Vue 3 Prototype 開發計畫
+# Sim Monitor Dashboard — Vue 3 Prototype 開發計畫
 
 ## Context
 
-台達電 UIUX Engineer 面試作業的延伸開發。設計稿已完成（Figma），目標是將 dashboard wireframe 實作為可互動的 Vue 3 prototype，用以展示設計到前端開發的銜接能力。
+**個人 UIUX 設計練習**的延伸開發。設計稿已完成（Figma），目標是將 dashboard wireframe 實作為可互動的 Vue 3 prototype，用以展示設計到前端開發的銜接能力。
 
-面試複試約 9 天後，開發以「核心流程可完整演示」為優先，不追求完美，視時間能做多少算多少。開發過程需要 AI 輔助。
-
-**設計稿：** https://www.figma.com/design/yKyKVcdDzVGrTWKFqAl1QL/Delta-Assignment---yode?node-id=141-1116
+**開發時程有限**，開發以「核心流程可完整演示」為優先，不追求完美，視時間能做多少算多少。開發過程需要 AI 輔助。
 
 **核心展示目標：**
 - Running 狀態下的模擬引擎（時間序列劇本、即時數據更新）
@@ -23,14 +21,14 @@
 | 框架 | Vue 3 + Composition API | 目標職位技術棧 |
 | 語言 | TypeScript | 展示型別意識，interface 定義資料結構 |
 | 建置工具 | Vite | 標準 Vue 3 開發環境 |
-| UI Library | Element Plus | 台達團隊使用，省去元件樣式刻制時間 |
+| UI Library | Element Plus | 常見企業內部系統使用，省去元件樣式刻制時間 |
 | 狀態管理 | Pinia | Vue 3 標準選擇，結構清晰易解釋 |
 | Sparkline | SVG 手刻 | 需求簡單，展示基礎 SVG 知識，無額外依賴 |
 
 **安裝指令：**
 ```bash
-npm create vite@latest delta-dashboard -- --template vue-ts
-cd delta-dashboard
+npm create vite@latest sim-monitor-dashboard -- --template vue-ts
+cd sim-monitor-dashboard
 npm install element-plus pinia
 npm install -D @types/node
 ```
@@ -40,7 +38,7 @@ npm install -D @types/node
 ## 專案架構
 
 ```
-delta-dashboard/
+sim-monitor-dashboard/
 ├── src/
 │   ├── types/
 │   │   └── index.ts              # 所有 TypeScript interface 定義
@@ -234,7 +232,7 @@ thermalResistance script: [0.8, 0.9, 1.0, 1.1, 1.15, 1.2, 1.2, 1.2]
 **驗收：點擊 ObjectList 不同列，右欄內容跟著切換**
 
 ### Iteration 3 — 版本流程（目標：Stop → Change Version → Apply 完整可 demo）
-面試最關鍵的互動流程，不需要 simulation 引擎。
+展示最關鍵的互動流程，不需要 simulation 引擎。
 
 - AppHeader.vue：Stop 按鈕邏輯（store.stopExperiment），status 切換
 - ChangeVersionModal.vue：el-dialog，版本列表 + Current/Last Run 標籤 + Apply 按鈕
@@ -269,7 +267,7 @@ thermalResistance script: [0.8, 0.9, 1.0, 1.1, 1.15, 1.2, 1.2, 1.2]
 
 ---
 
-## Demo 腳本（面試演示順序）
+## Demo 腳本（展示順序）
 
 ```
 1. 進入畫面 → Running 狀態，計時器跑動，進度條推進

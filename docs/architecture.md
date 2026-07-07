@@ -1,4 +1,4 @@
-# Delta Dashboard 架構說明
+# Sim Monitor Dashboard 架構說明
 
 Vue 3 · TypeScript · Vite · Pinia · Element Plus
 

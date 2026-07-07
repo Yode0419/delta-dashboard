@@ -1,10 +1,8 @@
-# Delta Dashboard
+# Sim Monitor Dashboard
 
 工程模擬監控儀表板的互動原型，以 Vue 3 實作，基於完整 Figma 設計稿開發。
 
-**Live Demo：** https://yode0419.github.io/delta-dashboard/
-
-**Figma 設計稿：** https://www.figma.com/design/yKyKVcdDzVGrTWKFqAl1QL/Delta-Assignment---yode?node-id=141-1116
+**Live Demo：** https://yode0419.github.io/sim-monitor-dashboard/
 
 ---
 

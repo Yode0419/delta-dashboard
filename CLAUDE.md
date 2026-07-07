@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Background
 
-A Vue 3 interactive prototype for a Delta Electronics UIUX Engineer interview. The Figma design is complete; the goal is to implement a dashboard that demonstrates design-to-frontend capability. See [planning/prototype-plan.md](planning/prototype-plan.md) for the full development plan.
+A Vue 3 interactive dashboard prototype built as a personal design/frontend practice project, based on a complete Figma design. The goal is to implement a dashboard that demonstrates design-to-frontend capability. See [planning/prototype-plan.md](planning/prototype-plan.md) for the full development plan.
 
 Key demo goals: simulation engine (time-series playbook), automatic alert triggering, object version-swap flow, and service-layer architecture.
 

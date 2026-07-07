@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Delta Dashboard — Architecture Diagram</title>
+  <title>Sim Monitor Dashboard — Architecture Diagram</title>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" integrity="sha384-ZZ1pncU3bQe8y31yfZdMFdSpttDoPmOZg2wguVK9almUodir1PghgT0eY7Mrty8H" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" integrity="sha384-en/ztfPSRkGfME4KIm05joYXynqzUgbsG5nMrj/xEFAHXkeZfO3yMK8QQ+mP7p1/" crossorigin="anonymous"></script>
@@ -63,7 +63,7 @@
     <div class="header">
       <div class="header-row">
         <div class="pulse-dot"></div>
-        <h1>Delta Dashboard Architecture</h1>
+        <h1>Sim Monitor Dashboard Architecture</h1>
         <div class="toolbar">
           <div class="toolbar-actions">
             <button onclick="copyAsImage(this)">&#x1F4CB; Copy</button>
@@ -73,7 +73,7 @@
           <button class="toolbar-toggle" onclick="this.parentElement.classList.toggle('expanded')" title="Export options" aria-label="Export options">&#x22EF;</button>
         </div>
       </div>
-      <p class="subtitle">Vue 3 &#xB7; TypeScript &#xB7; Vite &#xB7; Pinia &#xB7; Element Plus &#x2014; layered frontend architecture for Delta Electronics prototype</p>
+      <p class="subtitle">Vue 3 &#xB7; TypeScript &#xB7; Vite &#xB7; Pinia &#xB7; Element Plus &#x2014; layered frontend architecture for a monitoring dashboard prototype</p>
       <p class="subtitle">純前端原型：以 Service 層 + 計時器模擬 REST / SSE 後端，數據由預生成腳本逐格播放</p>
     </div>
 
@@ -527,7 +527,7 @@
     </div>
 
     <!-- Footer -->
-    <p class="footer">Delta Dashboard &#xB7; Vue 3 + TypeScript + Vite &#xB7; Delta Electronics UIUX Prototype</p>
+    <p class="footer">Sim Monitor Dashboard &#xB7; Vue 3 + TypeScript + Vite &#xB7; UIUX Design Prototype</p>
   </div>
 
   <script>
@@ -564,7 +564,7 @@
           width: r.width + pad * 2, height: r.height + pad * 2
         });
         const link = document.createElement('a');
-        link.download = 'delta-dashboard-architecture.png';
+        link.download = 'sim-monitor-dashboard-architecture.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
         btn.textContent = '✓ Done!';
@@ -590,7 +590,7 @@
         const orientation = canvas.width > canvas.height ? 'landscape' : 'portrait';
         const pdf = new jsPDF({ orientation, unit: 'px', format: [canvas.width, canvas.height], hotfixes: ['px_scaling'] });
         pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
-        pdf.save('delta-dashboard-architecture.pdf');
+        pdf.save('sim-monitor-dashboard-architecture.pdf');
         btn.textContent = '✓ Done!';
       } catch (e) { btn.textContent = '✗ Failed'; }
       setTimeout(() => btn.textContent = orig, 2000);

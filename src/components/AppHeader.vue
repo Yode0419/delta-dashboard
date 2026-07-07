@@ -1,11 +1,25 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
+import { ElMessageBox } from 'element-plus'
 import { useExperimentStore } from '@/stores/experiment'
 import { useExperimentSession } from '@/composables/useExperimentSession'
 
 const { experiment } = storeToRefs(useExperimentStore())
 const { stopExperiment, rerun } = useExperimentSession()
+
+function handleRerunClick() {
+  ElMessageBox.confirm(
+    "The current run's metrics, alerts, and logs will be cleared, and a new run will start.",
+    'Re-run Experiment?',
+    {
+      confirmButtonText: 'Re-run',
+      cancelButtonText: 'Cancel',
+    },
+  )
+    .then(() => rerun())
+    .catch(() => {})
+}
 
 const statusLabel: Record<string, string> = {
   running: 'Running',
@@ -49,7 +63,7 @@ const durationDisplay = computed(() => formatDuration(experiment.value.duration)
         >
           Stop
         </el-button>
-        <el-button v-else class="cta-btn" size="large" type="primary" @click="rerun()">
+        <el-button v-else class="cta-btn" size="large" type="primary" @click="handleRerunClick">
           Re-run
         </el-button>
       </div>
